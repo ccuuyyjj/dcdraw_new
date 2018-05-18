@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.1//EN""http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">'
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<LINK href="http://lab.vingsu.com/dcdraw/css.css" rel="stylesheet" type="text/css">
+<script src="http://lab.vingsu.com/lib/js/jquery.js"></script>
+<script src="dcdraw.js"></script>
+<title>DC추첨(Fixed)</title>
+</head>
+
+<body>
+<div class="top_bar"></div>
+	<div id='off-wrap'>
+	
+		<div id="header">
+			<div id="socio">
+				<div style="display:inline-block;float:left;">
+				</div>
+				<div style="display:inline-block;width:auto;">
+						DC추첨(Fixed)
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			
+		</div>
+
+		<div id="form_div">
+										<input type="text" name="track" class="track" id="track" placeholder="http://gall.dcinside.com/"/><BR />
+										<label class="error" for="track" id="track_error">추첨페이지 URL 입력</label><BR><BR>
+					<table style="border:0;margin:0 auto">
+						<tr>
+							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+								당첨자 수
+							</td>
+							<td style="text-align:left;padding:5px;">
+								<input type="text" id="popul" size="2" onKeyPress="return numbersonly(event, false)"  style="ime-mode:disabled" maxlength="2" value="1"/>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+								컷
+							</td>
+							<td style="text-align:left;padding:5px;">
+								<select name='month' id='month'>
+									<option value='01' selected="selected">01</option><option value='02' >02</option><option value='03' >03</option><option value='04' >04</option><option value='05' >05</option><option value='06' >06</option><option value='07' >07</option><option value='08' >08</option><option value='09' >09</option><option value='10' >10</option><option value='11' >11</option><option value='12' >12</option>					</select>월
+					<select name='day' id='day'>
+						<option value='01' selected="selected">01</option><option value='02' >02</option><option value='03' >03</option><option value='04' >04</option><option value='05' >05</option><option value='06' >06</option><option value='07' >07</option><option value='08' >08</option><option value='09' >09</option><option value='10' >10</option><option value='11' >11</option><option value='12' >12</option><option value='13' >13</option><option value='14' >14</option><option value='15' >15</option><option value='16' >16</option><option value='17' >17</option><option value='18' >18</option><option value='19' >19</option><option value='20' >20</option><option value='21' >21</option><option value='22' >22</option><option value='23' >23</option><option value='24' >24</option><option value='25' >25</option><option value='26' >26</option><option value='27' >27</option><option value='28' >28</option><option value='29' >29</option><option value='30' >30</option><option value='31' >31</option>					</select>일
+					<select name='hr' id='hr'>
+						<option value='00' selected="selected">00</option><option value='01' >01</option><option value='02' >02</option><option value='03' >03</option><option value='04' >04</option><option value='05' >05</option><option value='06' >06</option><option value='07' >07</option><option value='08' >08</option><option value='09' >09</option><option value='10' >10</option><option value='11' >11</option><option value='12' >12</option><option value='13' >13</option><option value='14' >14</option><option value='15' >15</option><option value='16' >16</option><option value='17' >17</option><option value='18' >18</option><option value='19' >19</option><option value='20' >20</option><option value='21' >21</option><option value='22' >22</option><option value='23' >23</option>					</select>시
+					<select name='min' id='min'>
+						<option value='00' selected="selected">00</option><option value='01' >01</option><option value='02' >02</option><option value='03' >03</option><option value='04' >04</option><option value='05' >05</option><option value='06' >06</option><option value='07' >07</option><option value='08' >08</option><option value='09' >09</option><option value='10' >10</option><option value='11' >11</option><option value='12' >12</option><option value='13' >13</option><option value='14' >14</option><option value='15' >15</option><option value='16' >16</option><option value='17' >17</option><option value='18' >18</option><option value='19' >19</option><option value='20' >20</option><option value='21' >21</option><option value='22' >22</option><option value='23' >23</option><option value='24' >24</option><option value='25' >25</option><option value='26' >26</option><option value='27' >27</option><option value='28' >28</option><option value='29' >29</option><option value='30' >30</option><option value='31' >31</option><option value='32' >32</option><option value='33' >33</option><option value='34' >34</option><option value='35' >35</option><option value='36' >36</option><option value='37' >37</option><option value='38' >38</option><option value='39' >39</option><option value='40' >40</option><option value='41' >41</option><option value='42' >42</option><option value='43' >43</option><option value='44' >44</option><option value='45' >45</option><option value='46' >46</option><option value='47' >47</option><option value='48' >48</option><option value='49' >49</option><option value='50' >50</option><option value='51' >51</option><option value='52' >52</option><option value='53' >53</option><option value='54' >54</option><option value='55' >55</option><option value='56' >56</option><option value='57' >57</option><option value='58' >58</option><option value='59' >59</option>					</select>분
+						<BR>
+						<input type="text" id="cut" style="display:none"/>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+								유동제외
+							</td>
+							<td style="text-align:left;padding:5px;">
+								<input type="checkbox" id="no_yudong" value='1'>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+								중복 제거
+							</td>
+							<td style="text-align:left;padding:5px;">
+								<input type="checkbox" id="no_repeat" value='1' checked>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+								제외 닉네임(정확히)
+							</td>
+							<td style="text-align:left;padding:5px;">
+                                <textarea id="exception" cols=25 rows=3 style="padding:0;text-align:left"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:center;" colspan='2'>
+								여러 닉네임은 엔터 쳐서 구분
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+								제외 IP(정확히)
+							</td>
+							<td style="text-align:left;padding:5px;">
+								<textarea id="exception_ip" cols=25 rows=3 style="padding:0;text-align:left"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:center;" colspan='2'>
+								제외 IP는 유동도 포함할 경우에 유동에 대해서만 적용됨(고닉에는 적용X)<br>
+								111.11.*.* 형식으로 기재(DC에 기재된거 복붙하세요.),여러 IP는 엔터 쳐서 구분<br/><br/>
+								<strong>※추첨자의 IP를 포함한 모든 추첨 기록은 DB에 <strike>남습니다.</strike>남지않습니다.</strong>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:center;" colspan='2'>
+							<a href="http://lab.vingsu.com/dcdraw/"><strong>원래 사이트(고장) 링크</strong></a>
+							</td>
+						</tr>
+					</table>
+						<br><br>
+					<input type="submit" name="submit" class="button" id="button" value="" onClick="submit();return false" />
+		<div id="for_load" style="display:none">
+			<img src="http://lab.vingsu.com/dcdraw/img/ajax-loader.gif"><br/><br/><input type="button" value="취소" onclick="cancel()"/>
+		</div>
+		<div id='showtime' style="display:none">
+		<hr width="100%" /><br>
+		<div class="track_grey" id="list"></div><BR />
+			<span class="error_grey" for="track" id="track_grey_error">탑승자(<span id="num"></span>)</span><br><br><br>
+			<div class="track_red" id="result"></div><BR />
+			<span class="error_red" for="track" id="track_red_error">당첨자</span><br><br><br>
+			재추첨<br>
+			<input type="submit" name="submit" class="button" value="" onClick="submit();return false" />
+		</div>
+		</div>
+
+	</div>
+</body>
+</html>

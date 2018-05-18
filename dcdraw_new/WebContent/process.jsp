@@ -29,7 +29,8 @@
 			String id = URL.substring(URL.indexOf("id=")+3);
 			id = id.substring(0, id.indexOf("&"));
 			String no = URL.substring(URL.indexOf("no=")+3);
-			no = no.substring(0, no.indexOf("&"));
+			if(no.indexOf("&") != -1)
+				no = no.substring(0, no.indexOf("&"));
 			List<Comment> comment_list = CommentParser.parse(id, Integer.parseInt(no));
 			System.out.println(comment_list);
 			

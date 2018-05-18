@@ -18,7 +18,8 @@
 		String URL = queryMap.get("url")[0];
 		int popul = Integer.parseInt(queryMap.get("popul")[0]);
 		int year = Calendar.getInstance().get(Calendar.YEAR);
-		Date cut = new SimpleDateFormat("yyyy MM/dd/HH/ss").parse(year + " " + queryMap.get("cut")[0]);
+		Date cut = new SimpleDateFormat("yyyy MM/dd/HH/mm").parse(year + " " + queryMap.get("cut")[0]);
+		System.out.println(cut);
 		boolean no_yudong = queryMap.get("no_yudong")[0].equals("Y")?true:false;
 		boolean no_repeat = queryMap.get("no_repeat")[0].equals("Y")?true:false;
 		String[] exception = queryMap.get("exception")[0].split("\n");

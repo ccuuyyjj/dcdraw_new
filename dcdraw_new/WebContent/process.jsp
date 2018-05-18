@@ -25,7 +25,7 @@
 		String[] exception = queryMap.get("exception")[0].split("\n");
 		String[] exception_ip = queryMap.get("exception_ip")[0].split("\n");
 		
-		if(URL.contains("dcinside.com/")||URL.contains("id=")||URL.contains("no=")){
+		if(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no=")){
 			String id = URL.substring(URL.indexOf("id=")+3);
 			id = id.substring(0, id.indexOf("&"));
 			String no = URL.substring(URL.indexOf("no=")+3);

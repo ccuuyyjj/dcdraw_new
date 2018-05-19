@@ -19,6 +19,7 @@
 						'no_yudong':no_yudong,
 						'no_repeat':no_repeat,
 						'exception':$('textarea#exception').val(),
+						'exception_id':$('textarea#exception_id').val(),
 						'exception_ip':$('textarea#exception_ip').val()
 					},
                     success:function(result){

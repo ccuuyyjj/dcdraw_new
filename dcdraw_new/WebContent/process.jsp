@@ -22,6 +22,7 @@
 		boolean no_yudong = queryMap.get("no_yudong")[0].equals("Y")?true:false;
 		boolean no_repeat = queryMap.get("no_repeat")[0].equals("Y")?true:false;
 		String[] exception = queryMap.get("exception")[0].split("\n");
+		String[] exception_id = queryMap.get("exception_id")[0].split("\n");
 		String[] exception_ip = queryMap.get("exception_ip")[0].split("\n");
 		
 		if(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no=")){
@@ -33,6 +34,7 @@
 			List<Comment> comment_list = CommentParser.parse(id, Integer.parseInt(no));
 			
 			List<String> list = new ArrayList<>();
+			outerloop:
 			for(int i = 0; i < comment_list.size(); i++){
 				Comment c = comment_list.get(i);
 				if(c.getRetime().after(cut)){
@@ -42,18 +44,21 @@
 					String name = c.getUser_nick() + "(" + c.getUser_id().substring(7) + ")";
 					if(no_yudong){
 						continue;
-					} else if(no_repeat){
+					}
+					if(no_repeat){
 						if(list.contains(name)){
 							continue;
 						}
-					} else if(!exception[0].isEmpty()){
+					}
+					if(!exception[0].isEmpty()){
 						for(String ex : exception)
-							if(c.getUser_nick().equals(ex))
-								continue;
-					} else if(!exception_ip[0].isEmpty()){
+							if(c.getUser_nick().equals(ex.trim()))
+								continue outerloop;
+					}
+					if(!exception_ip[0].isEmpty()){
 						for(String ex : exception_ip)
-							if(c.getUser_id().substring(7).equals(ex))
-								continue;
+							if(c.getUser_id().substring(7).equals(ex.trim()))
+								continue outerloop;
 					}
 					list.add(name);
 				} else {
@@ -62,10 +67,17 @@
 						if(list.contains(name)){
 							continue;
 						}
-					} else if(!exception[0].isEmpty()){
-						for(String ex : exception)
-							if(c.getUser_nick().equals(ex))
-								continue;
+					}
+					if(!exception[0].isEmpty()){
+						for(String ex : exception){
+							if(c.getUser_nick().equals(ex.trim()))
+								continue outerloop;
+						}
+					}
+					if(!exception_id[0].isEmpty()){
+						for(String ex : exception_id)
+							if(c.getUser_id().equals(ex.trim()))
+								continue outerloop;
 					}
 					list.add(name);
 				}
@@ -113,15 +125,15 @@
 		*/
 		
 		StringBuilder sb = new StringBuilder()
-			.append("Current Time : ").append(new Date().toString()).append("\n")
-			.append("Remote IP : ").append(request.getRemoteAddr()).append("\n");
+			.append("Current Time : ").append(new Date().toString()).append("\r\n")
+			.append("Remote IP : ").append(request.getRemoteAddr()).append("\r\n");
 		
 		for(String key : queryMap.keySet()){
-			sb.append(key).append(" : ").append(queryMap.get(key)[0]).append("\n");
+			sb.append(key).append(" : ").append(queryMap.get(key)[0]).append("\r\n");
 		}
 		
-			sb.append("\n")
-			.append("Result\n")
+			sb.append("\r\n")
+			.append("Result\r\n")
 			.append(json.toString());
 		
 		File target = new File(application.getRealPath("/logs"), "dcdraw" + System.currentTimeMillis() + ".log");

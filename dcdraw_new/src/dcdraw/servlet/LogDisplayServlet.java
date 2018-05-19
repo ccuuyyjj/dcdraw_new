@@ -10,7 +10,10 @@ import java.io.StringReader;
 import java.security.AccessController;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import javax.servlet.ServletException;
@@ -48,8 +51,9 @@ public class LogDisplayServlet extends DefaultServlet {
         PrintWriter writer = new PrintWriter(osWriter);
 
         StringBuilder sb = new StringBuilder();
-
-        String[] entries = resources.list(resource.getWebappPath());
+        
+        List<String> entries = Arrays.asList(resources.list(resource.getWebappPath()));
+        Collections.sort(entries);
 
         // rewriteUrl(contextPath) is expensive. cache result for later reuse
         String rewrittenContextPath =  rewriteUrl(contextPath);
@@ -112,12 +116,13 @@ public class LogDisplayServlet extends DefaultServlet {
         sb.append("</tr>");
 
         boolean shade = false;
+        int count = 0;
         for (String entry : entries) {
             if (entry.equalsIgnoreCase("WEB-INF") ||
                 entry.equalsIgnoreCase("META-INF") ||
                 entry.equalsIgnoreCase("SAFE_TO_DELETE"))
                 continue;
-
+            
             WebResource childResource =
                     resources.getResource(directoryWebappPath + entry);
             if (!childResource.exists()) {
@@ -152,6 +157,24 @@ public class LogDisplayServlet extends DefaultServlet {
             sb.append("<td align=\"right\"><tt>");
             sb.append(dateformat.format(new Date(childResource.getLastModified()))).append(" KST");
             sb.append("</tt></td>\r\n");
+
+            sb.append("</tr>\r\n");
+            
+            count++;
+        }
+        
+        if(count == 0) {
+        	sb.append("<tr");
+            if (shade)
+                sb.append(" bgcolor=\"#eeeeee\"");
+            sb.append(">\r\n");
+            shade = !shade;
+
+            sb.append("<td colspan=\"3\" align=\"center\">\r\n");
+            
+            sb.append("<pre>Nothing to show</pre>");
+            
+            sb.append("</td>\r\n");
 
             sb.append("</tr>\r\n");
         }
@@ -199,7 +222,8 @@ public class LogDisplayServlet extends DefaultServlet {
 
         sb.append("<entries>");
 
-        String[] entries = resources.list(resource.getWebappPath());
+        List<String> entries = Arrays.asList(resources.list(resource.getWebappPath()));
+        Collections.sort(entries);
 
         // rewriteUrl(contextPath) is expensive. cache result for later reuse
         String rewrittenContextPath =  rewriteUrl(contextPath);

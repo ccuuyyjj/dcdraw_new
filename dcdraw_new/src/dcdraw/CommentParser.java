@@ -65,7 +65,7 @@ public class CommentParser {
 				if(user_id.isEmpty()) user_id = "yudong:" + e.select("span.etc_ip").text();
 				String time = e.select("td.retime").text();
 				Date retime = dateFormat.parse(time);
-				Comment comment = new Comment(user_nick, user_id, retime);
+				Comment comment = new Comment(user_nick.trim(), user_id.trim(), retime);
 				list.add(comment);
 			}
 		}

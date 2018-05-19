@@ -19,7 +19,6 @@
 		int popul = Integer.parseInt(queryMap.get("popul")[0]);
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		Date cut = new SimpleDateFormat("yyyy MM/dd/HH/mm").parse(year + " " + queryMap.get("cut")[0]);
-		System.out.println(cut);
 		boolean no_yudong = queryMap.get("no_yudong")[0].equals("Y")?true:false;
 		boolean no_repeat = queryMap.get("no_repeat")[0].equals("Y")?true:false;
 		String[] exception = queryMap.get("exception")[0].split("\n");
@@ -32,34 +31,28 @@
 			if(no.indexOf("&") != -1)
 				no = no.substring(0, no.indexOf("&"));
 			List<Comment> comment_list = CommentParser.parse(id, Integer.parseInt(no));
-			System.out.println(comment_list);
 			
 			List<String> list = new ArrayList<>();
 			for(int i = 0; i < comment_list.size(); i++){
 				Comment c = comment_list.get(i);
 				if(c.getRetime().after(cut)){
-					System.out.println("1: " + c);
 					continue;
 				}
 				if(c.getUser_id().startsWith("yudong:")){
 					String name = c.getUser_nick() + "(" + c.getUser_id().substring(7) + ")";
 					if(no_yudong){
-						System.out.println("2: " + c);
 						continue;
 					} else if(no_repeat){
 						if(list.contains(name)){
-							System.out.println("3: " + c);
 							continue;
 						}
 					} else if(!exception[0].isEmpty()){
 						for(String ex : exception)
 							if(c.getUser_nick().equals(ex))
-								System.out.println("4: " + c);
 								continue;
 					} else if(!exception_ip[0].isEmpty()){
 						for(String ex : exception_ip)
 							if(c.getUser_id().substring(7).equals(ex))
-								System.out.println("5: " + c);
 								continue;
 					}
 					list.add(name);
@@ -67,13 +60,11 @@
 					String name = c.getUser_nick() + "(" + c.getUser_id() + ")";
 					if(no_repeat) {
 						if(list.contains(name)){
-							System.out.println("6: " + c);
 							continue;
 						}
 					} else if(!exception[0].isEmpty()){
 						for(String ex : exception)
 							if(c.getUser_nick().equals(ex))
-								System.out.println("7: " + c);
 								continue;
 					}
 					list.add(name);
@@ -111,4 +102,33 @@
 			json.add("result", false);
 			json.add("msg", "url형식이 잘못되었습니다.");
 		}
+		/*
+			url: http://gall.dcinside.com/board/view/?id=mabi_heroes&no=7823930&page=1
+			popul: 1
+			cut: 05/18/20/40
+			no_yudong: N
+			no_repeat: Y
+			exception: 
+			exception_ip: 
+		*/
+		
+		StringBuilder sb = new StringBuilder()
+			.append("Current Time : ").append(new Date().toString()).append("\n")
+			.append("Remote IP : ").append(request.getRemoteAddr()).append("\n");
+		
+		for(String key : queryMap.keySet()){
+			sb.append(key).append(" : ").append(queryMap.get(key)[0]).append("\n");
+		}
+		
+			sb.append("\n")
+			.append("Result\n")
+			.append(json.toString());
+		
+		File target = new File(application.getRealPath("/logs"), "dcdraw" + System.currentTimeMillis() + ".log");
+		if(target.createNewFile()){
+			FileWriter writer = new FileWriter(target);
+			writer.write(sb.toString());
+			writer.close();
+		}
+		
 %><%=json.toString()%>

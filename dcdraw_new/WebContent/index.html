@@ -6,6 +6,7 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <LINK href="css.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-1.7.2.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="dcdraw.js"></script>
 <title>DC추첨(Fixed)</title>
 </head>
@@ -13,7 +14,6 @@
 <body>
 <div class="top_bar"></div>
 	<div id='off-wrap'>
-	
 		<div id="header">
 			<div id="socio">
 				<div style="display:inline-block;float:left;">
@@ -25,7 +25,6 @@
 			</div>
 			
 		</div>
-
 		<div id="form_div">
 										<input type="text" name="track" class="track" id="track" placeholder="http://gall.dcinside.com/"/><BR />
 										<label class="error" for="track" id="track_error">추첨페이지 URL 입력</label><BR><BR>
@@ -57,7 +56,7 @@
 						</tr>
 						<tr>
 							<td style="text-align:right;border-right:1px solid black;padding:5px;">
-								유동제외
+								유동 제외
 							</td>
 							<td style="text-align:left;padding:5px;">
 								<input type="checkbox" id="no_yudong" value='1'>
@@ -105,16 +104,16 @@
 								제외 IP는 유동도 포함할 경우에 유동에 대해서만 적용됨(고닉에는 적용X)<br>
 								111.11.*.* 형식으로 기재(DC에 기재된거 복붙하세요.),여러 IP는 엔터 쳐서 구분<br><br>
 								<a href="logs/"><strong>※추첨자의 IP를 포함한 모든 추첨 기록은 전부 로그로 남습니다.</strong></a><br>
-								로그 확인은 제작자(갤로그-<a href="http://gallog.dcinside.com/htckovsky">htckovsky</a>)에게 문의하세요.<br><br>
+								로그 확인은 제작자(갤로그-<a href="http://gallog.dcinside.com/htckovsky">htckovsky</a>)에게 문의하세요.<br>
 							</td>
 						</tr>
 						<tr>
-							<td style="text-align:center;" colspan='2'>
+							<td style="text-align:center;font-size:6pt;" colspan='2'>
 							<a href="http://lab.vingsu.com/dcdraw/"><strong>원래 사이트(고장) 링크</strong></a>
 							</td>
 						</tr>
 					</table>
-						<br><br>
+						<br>
 					<input type="submit" name="submit" class="button" id="button" value="" onClick="submit();return false" />
 		<div id="for_load" style="display:none">
 			<img src="img/ajax-loader.gif"><br/><br/><input type="button" value="취소" onclick="cancel()"/>
@@ -122,11 +121,12 @@
 		<div id='showtime' style="display:none">
 		<hr width="100%" /><br>
 		<div class="track_grey" id="list"></div><BR />
-			<span class="error_grey" for="track" id="track_grey_error">탑승자(<span id="num"></span>)</span><br><br><br>
+			<span class="error_grey" for="track" id="track_grey_error">탑승자(<span id="num"></span>)</span><br>
 			<div class="track_red" id="result"></div><BR />
-			<span class="error_red" for="track" id="track_red_error">당첨자</span><br><br><br>
-			재추첨<br>
-			<input type="submit" name="submit" class="button" value="" onClick="submit();return false" />
+			<span class="error_red" for="track" id="track_red_error">당첨자</span><br>
+			<span id="cap_btn" onClick="capture();">추첨 결과 저장(DC 업로드용)</span><br><br>
+			<input type="submit" name="submit" class="button" value="" onClick="submit();return false" /><br>
+			<span>재추첨</span>
 		</div>
 		</div>
 

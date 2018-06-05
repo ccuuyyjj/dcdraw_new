@@ -69,6 +69,20 @@ function numbersonly(e, decimal) {
     } else
         return false;
 }
+function downloadFromURI(filename, uri) {
+  var element = document.createElement('a');
+  element.setAttribute('href', uri);
+  element.setAttribute('download', filename);
+  element.style.display = 'none';
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+function capture(){
+	html2canvas(document.querySelector("#form_div")).then(canvas => {
+		downloadFromURI('dcdraw'+Date.now()+'.png',canvas.toDataURL('image/png'));
+	});
+}
 $(document).ready(function(){
   var dt = new Date();
   var month = dt.getMonth();

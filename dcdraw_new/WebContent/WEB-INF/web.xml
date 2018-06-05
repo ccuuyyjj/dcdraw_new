@@ -39,6 +39,14 @@
 			<web-resource-name>Logout Page</web-resource-name>
 			<url-pattern>/logout.jsp</url-pattern>
 		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>Delete Page</web-resource-name>
+			<url-pattern>/delete.jsp</url-pattern>
+		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>Delete Pages</web-resource-name>
+			<url-pattern>/delete.jsp*</url-pattern>
+		</web-resource-collection>
 		<auth-constraint>
 			<role-name>dcdraw-logs</role-name>
 		</auth-constraint>

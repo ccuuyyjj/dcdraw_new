@@ -146,7 +146,7 @@
 			.append(System.currentTimeMillis()).append("_")
 			.append(id).append("_")
 			.append(no).append("_")
-			.append(request.getRemoteAddr().replace(".", "-"))
+			.append(request.getRemoteAddr().replace(".", "-").replace(":", "-"))
 			.append(".log");
 	
 	File target = new File(application.getRealPath("/logs"), logname.toString());

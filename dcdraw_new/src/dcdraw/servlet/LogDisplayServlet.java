@@ -136,7 +136,17 @@ public class LogDisplayServlet extends DefaultServlet {
             sb.append(Escape.htmlElementContent(entry));
             if (childResource.isDirectory())
                 sb.append("/");
-            sb.append("</tt></a></td>\r\n");
+            sb.append("</tt></a> ");
+            if (!childResource.isDirectory()) {
+	            sb.append("<a href=\"");
+	            sb.append(rewrittenContextPath);
+	            sb.append("/delete.jsp?q=");
+	            sb.append(entry);
+	            sb.append("\"><tt>");
+	            sb.append("[삭제]");
+	            sb.append("</tt></a>");
+            }
+            sb.append("</td>\r\n");
 
             sb.append("<td align=\"right\"><tt>");
             if (childResource.isDirectory())
@@ -185,7 +195,7 @@ public class LogDisplayServlet extends DefaultServlet {
 //            sb.append("<h3>").append(ServerInfo.getServerInfo()).append("</h3>");
 //        }
         
-        sb.append("<a href='../logout.jsp'><h3 style='text-align: right;'>로그아웃</h3></a>");
+        sb.append("<h3 style='text-align: right;'><a href='javascript:history.back()'>뒤로가기</a> <a href='../logout.jsp'>로그아웃</a></h3>");
         
         sb.append("</body>\r\n");
         sb.append("</html>\r\n");

@@ -16,9 +16,22 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<servlet>
+		<servlet-name>PublicLogDisplayServlet</servlet-name>
+		<servlet-class>dcdraw.servlet.PublicLogDisplayServlet</servlet-class>
+		<init-param>
+			<param-name>listings</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>LogDisplayServlet</servlet-name>
 		<url-pattern>/logs/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PublicLogDisplayServlet</servlet-name>
+		<url-pattern>/public_logs/</url-pattern>
 	</servlet-mapping>
 
 	<security-constraint>

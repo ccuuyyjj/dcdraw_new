@@ -27,6 +27,7 @@
 	String id = "(empty-id)";
 	String no = "(empty-no)";
 	boolean log_enabled = true;
+	boolean log_public_enabled = true;
 	
 	if(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no=")){
 		id = URL.substring(URL.indexOf("id=")+3);
@@ -129,30 +130,53 @@
 		exception: 
 		exception_ip: 
 	*/
+	String[] remoteiparr = request.getRemoteAddr().split(".");
+	String logdate = new Date().toString();
 	StringBuilder sb = new StringBuilder()
-		.append("Current Time : ").append(new Date().toString()).append("\r\n")
-		.append("Remote IP : ").append(request.getRemoteAddr()).append("\r\n");
+		.append("Current Time : ").append(logdate).append("\r\n")
+		.append("Remote IP : ").append(remoteiparr[0]).append(".").append(remoteiparr[1]).append(".").append(remoteiparr[2]).append(".").append(remoteiparr[3]).append("\r\n");
+	StringBuilder sb_public = new StringBuilder()
+			.append("Current Time : ").append(logdate).append("\r\n")
+			.append("Remote IP : ").append(remoteiparr[0]).append(".").append(remoteiparr[1]).append(".*.*\r\n");
 	
 	for(String key : queryMap.keySet()){
 		sb.append(key).append(" : ").append(queryMap.get(key)[0]).append("\r\n");
+		sb_public.append(key).append(" : ").append(queryMap.get(key)[0]).append("\r\n");
 	}
 	
 	sb.append("\r\n")
 	.append("Result\r\n")
 	.append(json.toString());
+	sb_public.append("\r\n")
+	.append("Result\r\n")
+	.append(json.toString());
 	
+	long curtimemil = System.currentTimeMillis();
 	StringBuffer logname = new StringBuffer()
 			.append("dcdraw_")
-			.append(System.currentTimeMillis()).append("_")
+			.append(curtimemil).append("_")
 			.append(id).append("_")
 			.append(no).append("_")
-			.append(request.getRemoteAddr().replace(".", "-").replace(":", "-"))
+			.append(remoteiparr[0]).append("-").append(remoteiparr[1]).append("-").append(remoteiparr[2]).append("-").append(remoteiparr[3])
+			.append(".log");
+	StringBuffer logname_public = new StringBuffer()
+			.append("dcdraw_")
+			.append(curtimemil).append("_")
+			.append(id).append("_")
+			.append(no).append("_")
+			.append(remoteiparr[0]).append("-").append(remoteiparr[1])
 			.append(".log");
 	
 	File target = new File(application.getRealPath("/logs"), logname.toString());
 	if(log_enabled && target.createNewFile()){
 		FileWriter writer = new FileWriter(target);
 		writer.write(sb.toString());
+		writer.close();
+	}
+	target = new File(application.getRealPath("/public_logs"), logname_public.toString());
+	if(log_public_enabled && target.createNewFile()){
+		FileWriter writer = new FileWriter(target);
+		writer.write(sb_public.toString());
 		writer.close();
 	}
 %><%=json.toString()%>

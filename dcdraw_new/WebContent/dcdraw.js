@@ -70,7 +70,7 @@ function numbersonly(e, decimal) {
         return false;
 }
 function capture(){
-	html2canvas(document.querySelector("#form_div")).then(function(canvas){
+	html2canvas(document.querySelector("#off-wrap")).then(function(canvas){
 		download(canvas.toDataURL('image/png'),'dcdraw'+Date.now()+'.png');
 	});
 }

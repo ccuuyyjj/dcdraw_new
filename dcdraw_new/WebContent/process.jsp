@@ -29,10 +29,16 @@
 	boolean log_enabled = true;
 	boolean log_public_enabled = true;
 	
-	if(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no=")){
-		id = URL.substring(URL.indexOf("id=")+3);
-		id = id.substring(0, id.indexOf("&"));
-		no = URL.substring(URL.indexOf("no=")+3);
+	if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no="))){
+		if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")){
+			String[] tmp = URL.substring(25).split("\\/");
+			id = tmp[0];
+			no = tmp[1];
+		} else {
+			id = URL.substring(URL.indexOf("id=")+3);
+			id = id.substring(0, id.indexOf("&"));
+			no = URL.substring(URL.indexOf("no=")+3);
+		}
 		if(no.indexOf("&") != -1)
 			no = no.substring(0, no.indexOf("&"));
 		List<Comment> comment_list = CommentParser.parse(id, Integer.parseInt(no));
@@ -130,7 +136,7 @@
 		exception: 
 		exception_ip: 
 	*/
-	String[] remoteiparr = request.getRemoteAddr().split(".");
+	String[] remoteiparr = request.getRemoteAddr().split("\\.");
 	String logdate = new Date().toString();
 	StringBuilder sb = new StringBuilder()
 		.append("Current Time : ").append(logdate).append("\r\n")

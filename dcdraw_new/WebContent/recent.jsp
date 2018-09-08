@@ -17,7 +17,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
-<body style="background:#D6E7FB;">
-<div style="font-weight: bold;font-size: 0.8em;margin-left: 20px;"><%=winner_str.toString()%></div>
+<body style="background:#D6E7FB; overflow: hidden;">
+<div style="font-weight: bold;font-size: 0.8em;margin-left: 20px; overflow: hidden;"><%=winner_str.toString()%></div>
 </body>
 </html>

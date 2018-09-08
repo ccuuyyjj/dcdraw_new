@@ -29,6 +29,8 @@
 							$('#num').html(result['cnt']+'명');
 							$('#showtime').attr("style", "display:;");
 							$('#for_load').attr("style", "display:none;");
+							var iframe = document.getElementById('recent-list');
+							iframe.src = iframe.src;
 						}
 						if(result['result']!==true){
 							$('#for_load').attr("style", "display:none;");

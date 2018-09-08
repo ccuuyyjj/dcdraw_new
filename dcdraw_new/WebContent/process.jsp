@@ -26,6 +26,7 @@
 	String[] exception_ip = queryMap.get("exception_ip")[0].split("\n");
 	String id = "(empty-id)";
 	String no = "(empty-no)";
+	List<String> winner = null;
 	boolean log_enabled = true;
 	boolean log_public_enabled = true;
 	
@@ -103,7 +104,7 @@
 			json.add("result", false);
 			json.add("msg", "조건에 맞는 갤러가 추첨수보다 적음..;;");
 		} else {
-			List<String> winner = new ArrayList<>();
+			winner = new ArrayList<>();
 			json.add("result", true);
 			StringBuilder list_str = new StringBuilder();
 			for(String s : list){
@@ -183,6 +184,46 @@
 	if(log_public_enabled && target.createNewFile()){
 		FileWriter writer = new FileWriter(target);
 		writer.write(sb_public.toString());
+		writer.close();
+	}
+	target = new File(application.getRealPath("/"), "recent-db");
+	if(!target.exists()) target.createNewFile();
+	if(winner != null && !winner.isEmpty()){
+		int size = 0;
+		
+		StringBuilder winner_str = new StringBuilder();
+		for(String s : winner){
+			if(size < 20){
+				winner_str.append(s).append("<br>");
+		    	winner_str.append(System.lineSeparator());
+		    	size++;
+			}
+		}
+
+	    while(!target.canRead()){
+	        Thread.sleep(100);
+	    }
+	    
+		BufferedReader reader = new BufferedReader(new FileReader(target));
+		String line = reader.readLine();
+	    while (line != null && size < 20) {
+	    	winner_str.append(line);
+	    	winner_str.append(System.lineSeparator());
+	    	size++;
+	        line = reader.readLine();
+	    }
+	    reader.close();
+	    
+	    RandomAccessFile raf = new RandomAccessFile(target, "rw");
+	    raf.setLength(0);
+	    raf.close();
+	    
+	    while(!target.canWrite()){
+	        Thread.sleep(100);
+	    }
+	    
+		FileWriter writer = new FileWriter(target);
+		writer.write(winner_str.toString());
 		writer.close();
 	}
 %><%=json.toString()%>

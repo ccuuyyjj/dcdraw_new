@@ -181,14 +181,14 @@
 		writer.close();
 	}
 	target = new File(application.getRealPath("/public_logs"), logname_public.toString());
-	if(log_public_enabled && target.createNewFile()){
+	if(log_enabled && log_public_enabled && target.createNewFile()){
 		FileWriter writer = new FileWriter(target);
 		writer.write(sb_public.toString());
 		writer.close();
 	}
 	target = new File(application.getRealPath("/"), "recent-db");
 	if(!target.exists()) target.createNewFile();
-	if(winner != null && !winner.isEmpty()){
+	if(log_enabled && winner != null && !winner.isEmpty()){
 		int size = 0;
 		
 		StringBuilder winner_str = new StringBuilder();

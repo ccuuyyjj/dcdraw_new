@@ -16,6 +16,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style>
+a:visited {color: inherit;}
+a:link {color: inherit;}
+a:hover {color: inherit;}
+a:active {color: inherit;}
+</style>
 </head>
 <body style="background:#D6E7FB; overflow: hidden;">
 <div style="font-weight: bold;font-size: 0.8em;margin-left: 20px; overflow: hidden;"><%=winner_str.toString()%></div>

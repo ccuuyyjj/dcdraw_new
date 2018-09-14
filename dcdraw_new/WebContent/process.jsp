@@ -194,7 +194,7 @@
 		StringBuilder winner_str = new StringBuilder();
 		for(String s : winner){
 			if(size < 20){
-				winner_str.append(s).append("<br>");
+				winner_str.append("<a href=\"http://gall.dcinside.com/").append(id).append("/").append(no).append("\" target=\"_blank\">").append(s).append("</a><br>");
 		    	winner_str.append(System.lineSeparator());
 		    	size++;
 			}

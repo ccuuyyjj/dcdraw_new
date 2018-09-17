@@ -15,6 +15,7 @@
 		exception: 
 		exception_ip: 
 	*/
+	String[] remoteiparr = request.getRemoteAddr().split("\\.");
 	String URL = queryMap.get("url")[0];
 	int popul = Integer.parseInt(queryMap.get("popul")[0]);
 	int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -137,7 +138,6 @@
 		exception: 
 		exception_ip: 
 	*/
-	String[] remoteiparr = request.getRemoteAddr().split("\\.");
 	String logdate = new Date().toString();
 	StringBuilder sb = new StringBuilder()
 		.append("Current Time : ").append(logdate).append("\r\n")

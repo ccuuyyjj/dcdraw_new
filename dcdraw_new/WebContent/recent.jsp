@@ -21,6 +21,7 @@ a:visited {color: inherit;}
 a:link {color: inherit;}
 a:hover {color: inherit;}
 a:active {color: inherit;}
+a {text-decoration: none;}
 </style>
 </head>
 <body style="background:#D6E7FB; overflow: hidden;">

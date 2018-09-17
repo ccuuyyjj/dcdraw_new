@@ -37,6 +37,11 @@
 							$('#button').attr("style", "display:;");
 							alert(result['msg']);
 						}
+                    },
+                    error:function(error) {
+                    	$('#for_load').attr("style", "display:none;");
+						$('#button').attr("style", "display:;");
+						alert("에러 발생! 문제가 계속 발생 시 제작자에게 문의주세요!");
                     }
                 });
             }

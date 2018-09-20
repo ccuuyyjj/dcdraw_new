@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,8 +18,8 @@ import org.jsoup.Jsoup;
 import org.kopitubruk.util.json.JSONParser;
 
 public class CommentParser {
-//	private static DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-	private static DateFormat dateFormat = new SimpleDateFormat("MM.dd HH:mm:ss");
+	private static DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+//	private static DateFormat dateFormat = new SimpleDateFormat("MM.dd HH:mm:ss");
 
 	@SuppressWarnings("unchecked")
 	public static List<Comment> parse(String id, int no) throws IOException, ParseException, InterruptedException {
@@ -91,7 +92,7 @@ public class CommentParser {
 			String user_id = (String) cmt.get("user_id");
 			if (user_id.isEmpty())
 				user_id = "yudong:" + (String) cmt.get("ip");
-			String time = (String) cmt.get("reg_date");
+			String time = Calendar.getInstance().get(Calendar.YEAR) + "." + (String) cmt.get("reg_date");
 			Date retime = dateFormat.parse(time);
 			Comment comment = new Comment(user_nick.trim(), user_id.trim(), retime);
 			list.add(comment);
@@ -143,7 +144,7 @@ public class CommentParser {
 		return list;
 	}
 
-	public static void main(String[] args) throws IOException, ParseException, InterruptedException {
-		System.out.println(CommentParser.parse("mabi_heroes", 8031754));
-	}
+//	public static void main(String[] args) throws IOException, ParseException, InterruptedException {
+//		System.out.println(Calendar.getInstance().get(Calendar.YEAR));
+//	}
 }

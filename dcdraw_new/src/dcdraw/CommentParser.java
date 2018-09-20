@@ -17,7 +17,8 @@ import org.jsoup.Jsoup;
 import org.kopitubruk.util.json.JSONParser;
 
 public class CommentParser {
-	private static DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+//	private static DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+	private static DateFormat dateFormat = new SimpleDateFormat("MM.dd HH:mm:ss");
 
 	@SuppressWarnings("unchecked")
 	public static List<Comment> parse(String id, int no) throws IOException, ParseException, InterruptedException {

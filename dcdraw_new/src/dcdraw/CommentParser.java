@@ -134,7 +134,7 @@ public class CommentParser {
 				String user_id = (String) cmt.get("user_id");
 				if (user_id.isEmpty())
 					user_id = "yudong:" + (String) cmt.get("ip");
-				String time = (String) cmt.get("reg_date");
+				String time = Calendar.getInstance().get(Calendar.YEAR) + "." + (String) cmt.get("reg_date");
 				Date retime = dateFormat.parse(time);
 				Comment comment = new Comment(user_nick.trim(), user_id.trim(), retime);
 				list.add(comment);

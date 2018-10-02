@@ -88,6 +88,8 @@ public class CommentParser {
 		for (LinkedHashMap<String, Object> cmt : comments) {
 			if (cmt.get("nicktype").equals("COMMENT_BOY"))
 				continue;
+			if ((Long) cmt.get("depth") > 0)
+				comment_cnt++;
 			String user_nick = (String) cmt.get("name");
 			String user_id = (String) cmt.get("user_id");
 			if (user_id.isEmpty())
@@ -130,6 +132,8 @@ public class CommentParser {
 			for (LinkedHashMap<String, Object> cmt : comments) {
 				if (cmt.get("nicktype").equals("COMMENT_BOY"))
 					continue;
+				if ((Long) cmt.get("depth") > 0)
+					comment_cnt++;
 				String user_nick = (String) cmt.get("name");
 				String user_id = (String) cmt.get("user_id");
 				if (user_id.isEmpty())
@@ -145,6 +149,6 @@ public class CommentParser {
 	}
 
 //	public static void main(String[] args) throws IOException, ParseException, InterruptedException {
-//		System.out.println(Calendar.getInstance().get(Calendar.YEAR));
+//		System.out.println(CommentParser.parse("mabi_heroes", 8055502).size());
 //	}
 }

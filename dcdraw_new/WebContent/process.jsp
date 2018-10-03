@@ -31,9 +31,13 @@
 	boolean log_enabled = true;
 	boolean log_public_enabled = true;
 	
-	if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no="))){
+	if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")||URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no="))){
 		if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")){
 			String[] tmp = URL.substring(25).split("\\/");
+			id = tmp[0];
+			no = tmp[1];
+		} else if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")){
+			String[] tmp = URL.substring(28).split("\\/");
 			id = tmp[0];
 			no = tmp[1];
 		} else {

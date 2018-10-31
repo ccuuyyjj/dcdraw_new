@@ -86,7 +86,7 @@ public class CommentParser {
 		ArrayList<LinkedHashMap<String, Object>> comments = (ArrayList<LinkedHashMap<String, Object>>) json
 				.get("comments");
 		for (LinkedHashMap<String, Object> cmt : comments) {
-			if (cmt.get("nicktype").equals("COMMENT_BOY"))
+			if (cmt.get("nicktype").equals("COMMENT_BOY") || cmt.get("is_delete").equals("1"))
 				continue;
 			if ((Long) cmt.get("depth") > 0)
 				comment_cnt++;

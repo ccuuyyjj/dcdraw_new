@@ -5,7 +5,7 @@ request.setCharacterEncoding("UTF-8");
 response.setCharacterEncoding("UTF-8");
 HttpURLConnection connection = null;
 try{
-	URL url = new URL("htt://gall.dcinside.com/");
+	URL url = new URL("http://gall.dcinside.com/");
 	connection = (HttpURLConnection) url.openConnection();
 	connection.setRequestMethod("HEAD");
 	connection.setConnectTimeout(5000);

@@ -81,20 +81,20 @@ public class CommentParser {
 		}
 
 		LinkedHashMap<String, Object> json = (LinkedHashMap<String, Object>) JSONParser.parseJSON(response.body());
-		int total_cnt = Integer.parseInt((String) json.get("total_cnt"));
-		long comment_cnt = (long) json.get("comment_cnt");
+		int total_cnt = Integer.parseInt(json.get("total_cnt").toString());
+		int comment_cnt = Integer.parseInt(json.get("comment_cnt").toString());
 		ArrayList<LinkedHashMap<String, Object>> comments = (ArrayList<LinkedHashMap<String, Object>>) json
 				.get("comments");
 		for (LinkedHashMap<String, Object> cmt : comments) {
 			if (cmt.get("nicktype").equals("COMMENT_BOY") || cmt.get("is_delete").equals("1"))
 				continue;
-			if ((Long) cmt.get("depth") > 0)
+			if (Integer.parseInt(cmt.get("depth").toString()) > 0)
 				comment_cnt++;
-			String user_nick = (String) cmt.get("name");
-			String user_id = (String) cmt.get("user_id");
+			String user_nick = cmt.get("name").toString();
+			String user_id = cmt.get("user_id").toString();
 			if (user_id.isEmpty())
-				user_id = "yudong:" + (String) cmt.get("ip");
-			String time = Calendar.getInstance().get(Calendar.YEAR) + "." + (String) cmt.get("reg_date");
+				user_id = "yudong:" + cmt.get("ip").toString();
+			String time = Calendar.getInstance().get(Calendar.YEAR) + "." + cmt.get("reg_date").toString();
 			Date retime = dateFormat.parse(time);
 			Comment comment = new Comment(user_nick.trim(), user_id.trim(), retime);
 			list.add(comment);
@@ -127,18 +127,18 @@ public class CommentParser {
 			}
 
 			json = (LinkedHashMap<String, Object>) JSONParser.parseJSON(response.body());
-			comment_cnt += (long) json.get("comment_cnt");
+			comment_cnt += Integer.parseInt(json.get("comment_cnt").toString());
 			comments = (ArrayList<LinkedHashMap<String, Object>>) json.get("comments");
 			for (LinkedHashMap<String, Object> cmt : comments) {
 				if (cmt.get("nicktype").equals("COMMENT_BOY"))
 					continue;
-				if ((Long) cmt.get("depth") > 0)
+				if (Integer.parseInt(cmt.get("depth").toString()) > 0)
 					comment_cnt++;
-				String user_nick = (String) cmt.get("name");
-				String user_id = (String) cmt.get("user_id");
+				String user_nick = cmt.get("name").toString();
+				String user_id = cmt.get("user_id").toString();
 				if (user_id.isEmpty())
-					user_id = "yudong:" + (String) cmt.get("ip");
-				String time = Calendar.getInstance().get(Calendar.YEAR) + "." + (String) cmt.get("reg_date");
+					user_id = "yudong:" + cmt.get("ip").toString();
+				String time = Calendar.getInstance().get(Calendar.YEAR) + "." + cmt.get("reg_date").toString();
 				Date retime = dateFormat.parse(time);
 				Comment comment = new Comment(user_nick.trim(), user_id.trim(), retime);
 				list.add(comment);

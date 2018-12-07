@@ -30,6 +30,8 @@
 	List<String> winner = null;
 	boolean log_enabled = true;
 	boolean log_public_enabled = true;
+	boolean test_mode = false;
+	if(exception[0].equals("테스트") && exception_id[0].equals("테스트") && exception_ip[0].equals("테스트")) test_mode = true;
 	
 	if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")||URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no="))){
 		if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")){
@@ -126,108 +128,114 @@
 			for(String s : winner){
 				winner_str.append(s).append(", ");
 			}
-			json.add("winner", winner_str.toString().substring(0, winner_str.length()-2));
+			if(test_mode)
+				json.add("winner", winner_str.toString().substring(0, winner_str.length()-2) + " (테스트 모드)");
+			else
+				json.add("winner", winner_str.toString().substring(0, winner_str.length()-2));
 		}
 	} else {
 		log_enabled = false;
 		json.add("result", false);
 		json.add("msg", "url형식이 잘못되었습니다.");
 	}
-	/*
-		url: http://gall.dcinside.com/board/view/?id=mabi_heroes&no=7823930&page=1
-		popul: 1
-		cut: 05/18/20/40
-		no_yudong: N
-		no_repeat: Y
-		exception: 
-		exception_ip: 
-	*/
-	String logdate = new Date().toString();
-	StringBuilder sb = new StringBuilder()
-		.append("Current Time : ").append(logdate).append("\r\n")
-		.append("Remote IP : ").append(remoteiparr[0]).append(".").append(remoteiparr[1]).append(".").append(remoteiparr[2]).append(".").append(remoteiparr[3]).append("\r\n");
-	StringBuilder sb_public = new StringBuilder()
+	
+	if(!test_mode){ //테스트모드에선 로그를 남기지 않음.
+		/*
+			url: http://gall.dcinside.com/board/view/?id=mabi_heroes&no=7823930&page=1
+			popul: 1
+			cut: 05/18/20/40
+			no_yudong: N
+			no_repeat: Y
+			exception: 
+			exception_ip: 
+		*/
+		String logdate = new Date().toString();
+		StringBuilder sb = new StringBuilder()
 			.append("Current Time : ").append(logdate).append("\r\n")
-			.append("Remote IP : ").append(remoteiparr[0]).append(".").append(remoteiparr[1]).append(".*.*\r\n");
-	
-	for(String key : queryMap.keySet()){
-		sb.append(key).append(" : ").append(queryMap.get(key)[0]).append("\r\n");
-		sb_public.append(key).append(" : ").append(queryMap.get(key)[0]).append("\r\n");
-	}
-	
-	sb.append("\r\n")
-	.append("Result\r\n")
-	.append(json.toString());
-	sb_public.append("\r\n")
-	.append("Result\r\n")
-	.append(json.toString());
-	
-	long curtimemil = System.currentTimeMillis();
-	StringBuffer logname = new StringBuffer()
-			.append("dcdraw_")
-			.append(curtimemil).append("_")
-			.append(id).append("_")
-			.append(no).append("_")
-			.append(remoteiparr[0]).append("-").append(remoteiparr[1]).append("-").append(remoteiparr[2]).append("-").append(remoteiparr[3])
-			.append(".log");
-	StringBuffer logname_public = new StringBuffer()
-			.append("dcdraw_")
-			.append(curtimemil).append("_")
-			.append(id).append("_")
-			.append(no).append("_")
-			.append(remoteiparr[0]).append("-").append(remoteiparr[1])
-			.append(".log");
-	
-	File target = new File(application.getRealPath("/logs"), logname.toString());
-	if(log_enabled && target.createNewFile()){
-		FileWriter writer = new FileWriter(target);
-		writer.write(sb.toString());
-		writer.close();
-	}
-	target = new File(application.getRealPath("/public_logs"), logname_public.toString());
-	if(log_enabled && log_public_enabled && target.createNewFile()){
-		FileWriter writer = new FileWriter(target);
-		writer.write(sb_public.toString());
-		writer.close();
-	}
-	target = new File(application.getRealPath("/"), "recent-db");
-	if(!target.exists()) target.createNewFile();
-	if(log_enabled && winner != null && !winner.isEmpty()){
-		int size = 0;
+			.append("Remote IP : ").append(remoteiparr[0]).append(".").append(remoteiparr[1]).append(".").append(remoteiparr[2]).append(".").append(remoteiparr[3]).append("\r\n");
+		StringBuilder sb_public = new StringBuilder()
+				.append("Current Time : ").append(logdate).append("\r\n")
+				.append("Remote IP : ").append(remoteiparr[0]).append(".").append(remoteiparr[1]).append(".*.*\r\n");
 		
-		StringBuilder winner_str = new StringBuilder();
-		for(String s : winner){
-			if(size < 20){
-				winner_str.append("<a href=\"http://gall.dcinside.com/").append(id).append("/").append(no).append("\" target=\"_blank\">").append(s).append("</a><br>");
+		for(String key : queryMap.keySet()){
+			sb.append(key).append(" : ").append(queryMap.get(key)[0]).append("\r\n");
+			sb_public.append(key).append(" : ").append(queryMap.get(key)[0]).append("\r\n");
+		}
+		
+		sb.append("\r\n")
+		.append("Result\r\n")
+		.append(json.toString());
+		sb_public.append("\r\n")
+		.append("Result\r\n")
+		.append(json.toString());
+		
+		long curtimemil = System.currentTimeMillis();
+		StringBuffer logname = new StringBuffer()
+				.append("dcdraw_")
+				.append(curtimemil).append("_")
+				.append(id).append("_")
+				.append(no).append("_")
+				.append(remoteiparr[0]).append("-").append(remoteiparr[1]).append("-").append(remoteiparr[2]).append("-").append(remoteiparr[3])
+				.append(".log");
+		StringBuffer logname_public = new StringBuffer()
+				.append("dcdraw_")
+				.append(curtimemil).append("_")
+				.append(id).append("_")
+				.append(no).append("_")
+				.append(remoteiparr[0]).append("-").append(remoteiparr[1])
+				.append(".log");
+		
+		File target = new File(application.getRealPath("/logs"), logname.toString());
+		if(log_enabled && target.createNewFile()){
+			FileWriter writer = new FileWriter(target);
+			writer.write(sb.toString());
+			writer.close();
+		}
+		target = new File(application.getRealPath("/public_logs"), logname_public.toString());
+		if(log_enabled && log_public_enabled && target.createNewFile()){
+			FileWriter writer = new FileWriter(target);
+			writer.write(sb_public.toString());
+			writer.close();
+		}
+		target = new File(application.getRealPath("/"), "recent-db");
+		if(!target.exists()) target.createNewFile();
+		if(log_enabled && winner != null && !winner.isEmpty()){
+			int size = 0;
+			
+			StringBuilder winner_str = new StringBuilder();
+			for(String s : winner){
+				if(size < 20){
+					winner_str.append("<a href=\"http://gall.dcinside.com/").append(id).append("/").append(no).append("\" target=\"_blank\">").append(s).append("</a><br>");
+			    	winner_str.append(System.lineSeparator());
+			    	size++;
+				}
+			}
+	
+		    while(!target.canRead()){
+		        Thread.sleep(100);
+		    }
+		    
+			BufferedReader reader = new BufferedReader(new FileReader(target));
+			String line = reader.readLine();
+		    while (line != null && size < 20) {
+		    	winner_str.append(line);
 		    	winner_str.append(System.lineSeparator());
 		    	size++;
-			}
+		        line = reader.readLine();
+		    }
+		    reader.close();
+		    
+		    RandomAccessFile raf = new RandomAccessFile(target, "rw");
+		    raf.setLength(0);
+		    raf.close();
+		    
+		    while(!target.canWrite()){
+		        Thread.sleep(100);
+		    }
+		    
+			FileWriter writer = new FileWriter(target);
+			writer.write(winner_str.toString());
+			writer.close();
 		}
-
-	    while(!target.canRead()){
-	        Thread.sleep(100);
-	    }
-	    
-		BufferedReader reader = new BufferedReader(new FileReader(target));
-		String line = reader.readLine();
-	    while (line != null && size < 20) {
-	    	winner_str.append(line);
-	    	winner_str.append(System.lineSeparator());
-	    	size++;
-	        line = reader.readLine();
-	    }
-	    reader.close();
-	    
-	    RandomAccessFile raf = new RandomAccessFile(target, "rw");
-	    raf.setLength(0);
-	    raf.close();
-	    
-	    while(!target.canWrite()){
-	        Thread.sleep(100);
-	    }
-	    
-		FileWriter writer = new FileWriter(target);
-		writer.write(winner_str.toString());
-		writer.close();
 	}
 %><%=json.toString()%>

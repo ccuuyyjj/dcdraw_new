@@ -3,7 +3,7 @@
 				$('#for_load').attr("style", "display:;");
 				$('#button').attr("style", "display:none");
 				$('#showtime').attr("style", "display:none;");
-				document.getElementById("cut").value = month.options[month.selectedIndex].value+'/'+day.options[day.selectedIndex].value+'/'+hr.options[hr.selectedIndex].value+'/'+min.options[min.selectedIndex].value
+				document.getElementById("cut").value = year.options[year.selectedIndex].value+' '+month.options[month.selectedIndex].value+'/'+day.options[day.selectedIndex].value+'/'+hr.options[hr.selectedIndex].value+'/'+min.options[min.selectedIndex].value
 				if($("input:checkbox[id='no_yudong']").is(":checked")) no_yudong = 'Y';
 				else no_yudong = 'N';
 				if($("input:checkbox[id='no_repeat']").is(":checked")) no_repeat = 'Y';
@@ -83,10 +83,12 @@ function capture(){
 }
 $(document).ready(function(){
   var dt = new Date();
+  var year = dt.getYear() + 1900;
   var month = dt.getMonth();
   var day = dt.getDate() - 1;
   var hr = dt.getHours();
   var min = dt.getMinutes();
+  $("#year").val(year);
   $("#month").val($("#month").children().eq(month).text());
   $("#day").val($("#day").children().eq(day).text());
   $("#hr").val($("#hr").children().eq(hr).text());

@@ -94,7 +94,8 @@ public class CommentParser {
 			String user_id = cmt.get("user_id").toString();
 			if (user_id.isEmpty())
 				user_id = "yudong:" + cmt.get("ip").toString();
-			String time = Calendar.getInstance().get(Calendar.YEAR) + "." + cmt.get("reg_date").toString();
+			String time = cmt.get("reg_date").toString(); // 올해 작성되지 않은 댓글들은 년도부터 붙어서 나옴 
+			if (time.length() < 15) time = Calendar.getInstance().get(Calendar.YEAR) + "." + time; // 올해 작성된 댓글 날짜 저장용
 			Date retime = dateFormat.parse(time);
 			Comment comment = new Comment(user_nick.trim(), user_id.trim(), retime);
 			list.add(comment);
@@ -138,7 +139,8 @@ public class CommentParser {
 				String user_id = cmt.get("user_id").toString();
 				if (user_id.isEmpty())
 					user_id = "yudong:" + cmt.get("ip").toString();
-				String time = Calendar.getInstance().get(Calendar.YEAR) + "." + cmt.get("reg_date").toString();
+				String time = cmt.get("reg_date").toString(); // 올해 작성되지 않은 댓글들은 년도부터 붙어서 나옴 
+				if (time.length() < 15) time = Calendar.getInstance().get(Calendar.YEAR) + "." + time; // 올해 작성된 댓글 날짜 저장용
 				Date retime = dateFormat.parse(time);
 				Comment comment = new Comment(user_nick.trim(), user_id.trim(), retime);
 				list.add(comment);

@@ -52,7 +52,7 @@ public class CommentParser {
 		}
 
 		Map<String, String> cookie = response.cookies();
-		String csrf_token = cookie.get("ci_c");
+		//String csrf_token = cookie.get("ci_c");
 		String e_s_n_o = response.parse().select("#e_s_n_o").val();
 
 		trycount = 0;
@@ -63,9 +63,11 @@ public class CommentParser {
 						.userAgent(userAgent)
 						.cookies(cookie)
 						.header("X-Requested-With", "XMLHttpRequest")
-						.data("ci_t", csrf_token)
+						//.data("ci_t", csrf_token)
 						.data("id", id)
 						.data("no", Integer.toString(no))
+						.data("cmt_id", id)
+						.data("cmt_no", Integer.toString(no))
 						.data("e_s_n_o", e_s_n_o)
 						.data("comment_page", Integer.toString(page))
 						.method(Connection.Method.POST).execute();
@@ -110,9 +112,11 @@ public class CommentParser {
 							.userAgent(userAgent)
 							.cookies(cookie)
 							.header("X-Requested-With", "XMLHttpRequest")
-							.data("ci_t", csrf_token)
+//							.data("ci_t", csrf_token)
 							.data("id", id)
 							.data("no", Integer.toString(no))
+							.data("cmt_id", id)
+							.data("cmt_no", Integer.toString(no))
 							.data("e_s_n_o", e_s_n_o)
 							.data("comment_page", Integer.toString(page))
 							.method(Connection.Method.POST).execute();

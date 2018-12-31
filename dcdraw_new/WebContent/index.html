@@ -28,24 +28,24 @@
 			
 		</div>
 		<div id="form_div">
-										<input type="text" name="track" class="track" id="track" placeholder="http://gall.dcinside.com/"/><BR />
+										<input type="text" name="track" class="track" id="track" placeholder="http://gall.dcinside.com/example/1234567"/><BR />
 										<label class="error" for="track" id="track_error">추첨페이지 URL 입력</label><BR><BR>
-					<table style="border:0;margin:0 auto">
+					<table style="width:100%;border:0;margin:0 auto">
 						<tr>
-							<td style="vertical-align: top;text-align:center;border-right:2px dotted black;padding:20px;">
+							<td style="vertical-align: top;text-align:center;border-right:2px dotted black;padding:10px;">
 								<h3>최근 당첨자 목록 (20명만 표시)</h3>
-								<iframe id="recent-list" src="recent.jsp" style="border-width: 0px;width: 250px;height: 360px; overflow: hidden;"></iframe>
+								<iframe id="recent-list" src="recent.jsp" style="border-width: 0px;width: 250px;height: 400px; overflow: hidden;"></iframe>
 							</td>
 							<td>
 												<table style="border:0;margin:0 auto">
 						<tr>
-							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+							<td style="width:130px;text-align:right;border-right:1px solid black;padding:5px;">
 								당첨자 수
 							</td>
-							<td style="text-align:left;padding:5px 0px 5px 5px;">
+							<td style="width:75px;text-align:left;padding:5px 0px 5px 5px;">
 								<input type="text" id="popul" size="3" onKeyPress="return numbersonly(event, false)"  style="ime-mode:disabled" maxlength="3" value="1"/>
 							</td>
-							<td style="text-align:right;border-right:1px solid black;padding: 5px 5px 5px 0px;">
+							<td style="width:130px;text-align:right;border-right:1px solid black;padding: 5px 5px 5px 0px;">
 								인원 제한 (0: 무제한)
 							</td>
 							<td style="text-align:left;padding:5px;">
@@ -90,7 +90,7 @@
 								제외 닉네임(정확히)
 							</td>
 							<td style="text-align:left;padding:5px;" colspan='3'>
-                                <textarea id="exception" cols=35 rows=3 style="padding:0;text-align:left"></textarea>
+                                <textarea id="exception" cols=40 rows=5 style="padding:0;text-align:left"></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -98,7 +98,7 @@
 								제외 아이디(정확히)
 							</td>
 							<td style="text-align:left;padding:5px;" colspan='3'>
-                                <textarea id="exception_id" cols=35 rows=3 style="padding:0;text-align:left"></textarea>
+                                <textarea id="exception_id" cols=40 rows=5 style="padding:0;text-align:left"></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -111,7 +111,7 @@
 								제외 IP(정확히)
 							</td>
 							<td style="text-align:left;padding:5px;" colspan=3>
-								<textarea id="exception_ip" cols=35 rows=3 style="padding:0;text-align:left"></textarea>
+								<textarea id="exception_ip" cols=40 rows=5 style="padding:0;text-align:left"></textarea>
 							</td>
 						</tr>
 						<tr>

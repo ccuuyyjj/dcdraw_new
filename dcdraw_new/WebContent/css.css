@@ -2,9 +2,9 @@
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
 html{overflow-y:scroll;}
 body{font-family: 'Nanum Gothic', sans-serif;font-size:80%;background:#D6E7FB;}
-#off-wrap{width:800px;margin:auto;z-index:2;position:relative;}
-#header{width:483px;margin:0 auto;text-align:center;}
-.track{width:708px;font-size:22px;color:#000;font-weight:bold;background-color:transparent;border:10px solid #000;padding:10px;-moz-border-radius:15px;border-radius:15px;}
+#off-wrap{width:900px;margin:auto;z-index:2;position:relative;}
+#header{width:100%;margin:0 auto;text-align:center;}
+.track{width:850px;font-size:30px;color:#000;font-weight:bold;background-color:transparent;border:10px solid #000;padding:10px;-moz-border-radius:15px;border-radius:15px;}
 .track_red{margin:0 auto;text-align:center;width:708px;font-size:22px;color:#000;font-weight:bold;background-color:transparent;border:10px solid #CD2D25;padding:10px;-moz-border-radius:15px;border-radius:15px;}
 .track_grey{margin:0 auto;text-align:center;width:708px;color:#000;font-weight:bold;background-color:transparent;border:5px solid grey;padding:10px;-moz-border-radius:15px;border-radius:15px;}
 input.button{height:80px;width:80px;background:url('./img/off.png') left center;font-size:26px;font-weight:bold;color:#FFF;border:0 solid #888;font-family: 'Nanum Gothic', sans-serif;cursor:pointer;-moz-border-radius:15px;border-radius:15px;}
@@ -13,7 +13,7 @@ input.button:hover{height:80px;width:80px;background:url('./img/off.png') 74px c
 .error{font-weight:bold;color:#fff;background:#000;padding:3px 10px 5px;-moz-border-radius:5px;border-radius:5px;}
 .error_red{position:relative;top:-18px;font-weight:bold;color:#fff;background:#CD2D25;padding:3px 10px 5px;-moz-border-radius:5px;border-radius:5px;}
 .error_grey{position:relative;top:-18px;font-weight:bold;color:#fff;background:grey;padding:3px 10px 5px;-moz-border-radius:5px;border-radius:5px;}
-#form_div{font-family: 'Nanum Gothic', sans-serif;width:800px;margin:0 auto;padding:30px 0;text-align:center;background:#D6E7FB;}
+#form_div{font-family: 'Nanum Gothic', sans-serif;width:100%;margin:0;padding:30px 0;text-align:center;background:#D6E7FB;}
 .top_bar{min-width:850px;width:100%;height:30px;position:absolute;top:0;left:0;background:#FFF;margin:0 auto;}
 #cap_btn{font-weight:bold;cursor:pointer;text-decoration:underline;}
 a:visited {color: inherit;}

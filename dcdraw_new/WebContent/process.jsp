@@ -55,7 +55,7 @@
 		outerloop:
 		for(int i = 0; i < comment_list.size(); i++){
 			Comment c = comment_list.get(i);
-			if(maxnum >= 0 && list.size() >= maxnum){
+			if(maxnum > 0 && list.size() >= maxnum){
 				break;
 			}
 			if(c.getRetime().after(cut)){

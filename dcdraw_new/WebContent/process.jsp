@@ -18,6 +18,7 @@
 	String[] remoteiparr = request.getRemoteAddr().split("\\.");
 	String URL = queryMap.get("url")[0];
 	int popul = Integer.parseInt(queryMap.get("popul")[0]);
+	int maxnum = Integer.parseInt(queryMap.get("maxnum")[0]);
 	Date cut = new SimpleDateFormat("yyyy MM/dd/HH/mm").parse(queryMap.get("cut")[0]);
 	boolean no_yudong = queryMap.get("no_yudong")[0].equals("Y")?true:false;
 	boolean no_repeat = queryMap.get("no_repeat")[0].equals("Y")?true:false;
@@ -54,6 +55,9 @@
 		outerloop:
 		for(int i = 0; i < comment_list.size(); i++){
 			Comment c = comment_list.get(i);
+			if(maxnum >= 0 && list.size() >= maxnum){
+				break;
+			}
 			if(c.getRetime().after(cut)){
 				continue;
 			}

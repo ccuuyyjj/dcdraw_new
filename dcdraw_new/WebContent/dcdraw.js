@@ -15,6 +15,7 @@
                     data:{
 						'url':$(track).val(),
 						'popul':$(popul).val(),
+						'maxnum':$(maxnum).val(),
 						'cut':$(cut).val(),
 						'no_yudong':no_yudong,
 						'no_repeat':no_repeat,

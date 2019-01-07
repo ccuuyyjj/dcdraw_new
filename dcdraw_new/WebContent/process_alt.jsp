@@ -17,6 +17,7 @@
 	*/
 	String[] remoteiparr = request.getRemoteAddr().split("\\.");
 	String URL = queryMap.get("url")[0];
+	Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("warrock.iptime.org", 9896));
 	int popul = Integer.parseInt(queryMap.get("popul")[0]);
 	int maxnum = Integer.parseInt(queryMap.get("maxnum")[0]);
 	Date cut = new SimpleDateFormat("yyyy MM/dd/HH/mm").parse(queryMap.get("cut")[0]);
@@ -49,7 +50,7 @@
 		}
 		if(no.indexOf("&") != -1)
 			no = no.substring(0, no.indexOf("&"));
-		List<Comment> comment_list = CommentParser.parse_alt(id, Integer.parseInt(no));
+		List<Comment> comment_list = CommentParser.parse_alt(id, Integer.parseInt(no), proxy);
 		
 		List<String> list = new ArrayList<>();
 		outerloop:

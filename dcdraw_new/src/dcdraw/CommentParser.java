@@ -1,7 +1,6 @@
 package dcdraw;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -157,10 +156,9 @@ public class CommentParser {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<Comment> parse_alt(String id, int no) throws IOException, ParseException, InterruptedException {
+	public static List<Comment> parse_alt(String id, int no, Proxy proxy) throws IOException, ParseException, InterruptedException {
 		String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36";
 		String URL = "http://gall.dcinside.com/board/comment_view/?id=" + id + "&no=" + no;
-		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("warrock.iptime.org", 9896));
 		List<Comment> list = new ArrayList<>();
 		Response response = null;
 

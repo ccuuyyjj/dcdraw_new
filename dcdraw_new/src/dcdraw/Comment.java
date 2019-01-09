@@ -2,7 +2,7 @@ package dcdraw;
 
 import java.util.Date;
 
-public class Comment {
+public class Comment implements Comparable<Comment> {
 	private String user_nick;
 	private String user_id;
 	private Date retime;
@@ -33,5 +33,9 @@ public class Comment {
 	@Override
 	public String toString() {
 		return "Comment [user_nick=" + user_nick + ", user_id=" + user_id + ", retime=" + retime + "]";
+	}
+	@Override
+	public int compareTo(Comment o) {
+		return retime.compareTo(o.getRetime());
 	}
 }

@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -151,7 +152,7 @@ public class CommentParser {
 				list.add(comment);
 			}
 		}
-
+		Collections.sort(list);
 		return list;
 	}
 	
@@ -288,6 +289,7 @@ public class CommentParser {
 			}
 		}
 
+		Collections.sort(list);
 		return list;
 	}
 

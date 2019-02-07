@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.io.*, java.net.*, java.util.*, java.text.SimpleDateFormat, org.kopitubruk.util.json.*, dcdraw.*"
+<%@ page language="java" import="java.util.regex.*, java.io.*, java.net.*, java.util.*, java.text.SimpleDateFormat, org.kopitubruk.util.json.*, dcdraw.*"
 	contentType="application/json" pageEncoding="UTF-8"%><%
 	response.setHeader("Cache-Control", "no-cache");
 	JsonObject json = new JsonObject();
@@ -21,17 +21,44 @@
 	int maxnum = Integer.parseInt(queryMap.get("maxnum")[0]);
 	Date cut = new SimpleDateFormat("yyyy MM/dd/HH/mm").parse(queryMap.get("cut")[0]);
 	boolean no_yudong = queryMap.get("no_yudong")[0].equals("Y")?true:false;
-	boolean no_repeat = queryMap.get("no_repeat")[0].equals("Y")?true:false;
-	String[] exception = queryMap.get("exception")[0].split("\n");
-	String[] exception_id = queryMap.get("exception_id")[0].split("\n");
-	String[] exception_ip = queryMap.get("exception_ip")[0].split("\n");
+// 	boolean no_repeat = queryMap.get("no_repeat")[0].equals("Y")?true:false;
+	boolean no_repeat = true;
+	boolean no_redfish = queryMap.get("no_redfish")[0].equals("Y")?true:false;
+	List<String> ex_nick_list = new ArrayList<String>(Arrays.asList(queryMap.get("exception")[0].split("\n")));
+	List<String> ex_id_list = new ArrayList<String>(Arrays.asList(queryMap.get("exception_id")[0].split("\n")));
+	List<String> ex_ip_list = new ArrayList<String>(Arrays.asList(queryMap.get("exception_ip")[0].split("\n")));
 	String id = "(empty-id)";
 	String no = "(empty-no)";
 	List<String> winner = null;
 	boolean log_enabled = true;
 	boolean log_public_enabled = true;
 	boolean test_mode = false;
-	if(exception[0].equals("테스트") && exception_id[0].equals("테스트") && exception_ip[0].equals("테스트")) test_mode = true;
+	if(ex_nick_list.get(0).equals("테스트") && ex_id_list.get(0).equals("테스트") && ex_ip_list.get(0).equals("테스트")) test_mode = true;
+
+	if(no_redfish){
+		Pattern p = Pattern.compile("\\(([^()]+)\\)<\\/a><br>");
+		File target = new File(application.getRealPath("/"), "recent-db");
+		if(target.exists()) {
+			while(!target.canRead()){
+		        Thread.sleep(100);
+		    }
+		    
+			BufferedReader reader = new BufferedReader(new FileReader(target));
+			String line = reader.readLine();
+		    while (line != null) {
+		    	Matcher m = p.matcher(line);
+		    	if(m.find()){
+		    		String str = m.group(1);
+		    		if(str.matches("\\d+.\\d+"))
+		    			ex_ip_list.add(str);
+		    		else
+		    			ex_id_list.add(str);
+		    	}
+		        line = reader.readLine();
+		    }
+		    reader.close();
+		}
+	}
 	
 	if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")||URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no="))){
 		if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")){
@@ -71,13 +98,13 @@
 						continue;
 					}
 				}
-				if(!exception[0].isEmpty()){
-					for(String ex : exception)
+				if(!ex_nick_list.get(0).isEmpty()){
+					for(String ex : ex_nick_list)
 						if(c.getUser_nick().equals(ex.trim()))
 							continue outerloop;
 				}
-				if(!exception_ip[0].isEmpty()){
-					for(String ex : exception_ip)
+				if(!ex_ip_list.get(0).isEmpty()){
+					for(String ex : ex_ip_list)
 						if(c.getUser_id().substring(7).equals(ex.trim()))
 							continue outerloop;
 				}
@@ -89,14 +116,14 @@
 						continue;
 					}
 				}
-				if(!exception[0].isEmpty()){
-					for(String ex : exception){
+				if(!ex_nick_list.get(0).isEmpty()){
+					for(String ex : ex_nick_list){
 						if(c.getUser_nick().equals(ex.trim()))
 							continue outerloop;
 					}
 				}
-				if(!exception_id[0].isEmpty()){
-					for(String ex : exception_id)
+				if(!ex_id_list.get(0).isEmpty()){
+					for(String ex : ex_id_list)
 						if(c.getUser_id().equals(ex.trim()))
 							continue outerloop;
 				}

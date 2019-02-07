@@ -6,7 +6,7 @@ response.setCharacterEncoding("UTF-8");
 HttpURLConnection connection = null;
 try{
 	URL url = new URL("http://gall.dcinside.com/");
-	Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("warrock.iptime.org", 9896));
+	Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("119.196.18.51", 8080));
 	connection = (HttpURLConnection) url.openConnection(proxy);
 	connection.setRequestMethod("HEAD");
 	connection.setConnectTimeout(5000);

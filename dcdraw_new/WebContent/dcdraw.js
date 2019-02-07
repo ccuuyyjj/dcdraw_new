@@ -3,55 +3,55 @@ function submit() {
 	$('#for_load').attr("style", "display:;");
 	$('#button').attr("style", "display:none");
 	$('#showtime').attr("style", "display:none;");
-	$.ajax({
-        url:'con_test.jsp',
-        dataType:'json',
-        type:'POST',
-        success:function(result){
-            if(result['statusCode']==200){
-            	document.getElementById("cut").value = year.options[year.selectedIndex].value+' '+month.options[month.selectedIndex].value+'/'+day.options[day.selectedIndex].value+'/'+hr.options[hr.selectedIndex].value+'/'+min.options[min.selectedIndex].value
-            	if($("input:checkbox[id='no_yudong']").is(":checked")) no_yudong = 'Y';
-            	else no_yudong = 'N';
-            	if($("input:checkbox[id='no_repeat']").is(":checked")) no_repeat = 'Y';
-            	else no_repeat= 'N';
-            	$.ajax({
-                    url:'process.jsp',
-                    dataType:'json',
-                    type:'POST',
-                    data:{
-            			'url':$(track).val(),
-            			'popul':$(popul).val(),
-            			'maxnum':$(maxnum).val(),
-            			'cut':$(cut).val(),
-            			'no_yudong':no_yudong,
-            			'no_repeat':no_repeat,
-            			'exception':$('textarea#exception').val(),
-            			'exception_id':$('textarea#exception_id').val(),
-            			'exception_ip':$('textarea#exception_ip').val()
-            		},
-                    success:function(result){
-                        if(result['result']==true){
-            				$('#result').html(result['winner']);
-            				$('#list').html(result['list']);
-            				$('#num').html(result['cnt']+'명');
-            				$('#showtime').attr("style", "display:;");
-            				$('#for_load').attr("style", "display:none;");
-            				var iframe = document.getElementById('recent-list');
-            				iframe.src = iframe.src;
-            			}
-            			if(result['result']!==true){
-            				$('#for_load').attr("style", "display:none;");
-            				$('#button').attr("style", "display:;");
-            				alert(result['msg']);
-            			}
-                    },
-                    error:function(error) {
-	                    	$('#for_load').attr("style", "display:none;");
-	        				$('#button').attr("style", "display:;");
-	            			alert("에러 발생! 문제가 계속 발생 시 제작자에게 문의주세요!");
-                        }
-            	});
-			} else {
+//	$.ajax({
+//        url:'con_test.jsp',
+//        dataType:'json',
+//        type:'POST',
+//        success:function(result){
+//            if(result['statusCode']==200){
+//            	document.getElementById("cut").value = year.options[year.selectedIndex].value+' '+month.options[month.selectedIndex].value+'/'+day.options[day.selectedIndex].value+'/'+hr.options[hr.selectedIndex].value+'/'+min.options[min.selectedIndex].value
+//            	if($("input:checkbox[id='no_yudong']").is(":checked")) no_yudong = 'Y';
+//            	else no_yudong = 'N';
+//            	if($("input:checkbox[id='no_redfish']").is(":checked")) no_redfish = 'Y';
+//            	else no_redfish= 'N';
+//            	$.ajax({
+//                    url:'process.jsp',
+//                    dataType:'json',
+//                    type:'POST',
+//                    data:{
+//            			'url':$(track).val(),
+//            			'popul':$(popul).val(),
+//            			'maxnum':$(maxnum).val(),
+//            			'cut':$(cut).val(),
+//            			'no_yudong':no_yudong,
+//            			'no_redfish':no_redfish,
+//            			'exception':$('textarea#exception').val(),
+//            			'exception_id':$('textarea#exception_id').val(),
+//            			'exception_ip':$('textarea#exception_ip').val()
+//            		},
+//                    success:function(result){
+//                        if(result['result']==true){
+//            				$('#result').html(result['winner']);
+//            				$('#list').html(result['list']);
+//            				$('#num').html(result['cnt']+'명');
+//            				$('#showtime').attr("style", "display:;");
+//            				$('#for_load').attr("style", "display:none;");
+//            				var iframe = document.getElementById('recent-list');
+//            				iframe.src = iframe.src;
+//            			}
+//            			if(result['result']!==true){
+//            				$('#for_load').attr("style", "display:none;");
+//            				$('#button').attr("style", "display:;");
+//            				alert(result['msg']);
+//            			}
+//                    },
+//                    error:function(error) {
+//	                    	$('#for_load').attr("style", "display:none;");
+//	        				$('#button').attr("style", "display:;");
+//	            			alert("에러 발생! 문제가 계속 발생 시 제작자에게 문의주세요!");
+//                        }
+//            	});
+//			} else {
 				$.ajax({
 			        url:'con_test_alt.jsp',
 			        dataType:'json',
@@ -61,8 +61,8 @@ function submit() {
 			            	document.getElementById("cut").value = year.options[year.selectedIndex].value+' '+month.options[month.selectedIndex].value+'/'+day.options[day.selectedIndex].value+'/'+hr.options[hr.selectedIndex].value+'/'+min.options[min.selectedIndex].value
 			            	if($("input:checkbox[id='no_yudong']").is(":checked")) no_yudong = 'Y';
 			            	else no_yudong = 'N';
-			            	if($("input:checkbox[id='no_repeat']").is(":checked")) no_repeat = 'Y';
-			            	else no_repeat= 'N';
+			            	if($("input:checkbox[id='no_redfish']").is(":checked")) no_redfish = 'Y';
+			            	else no_redfish= 'N';
 			            	$.ajax({
 			                    url:'process_alt.jsp',
 			                    dataType:'json',
@@ -73,7 +73,7 @@ function submit() {
 			            			'maxnum':$(maxnum).val(),
 			            			'cut':$(cut).val(),
 			            			'no_yudong':no_yudong,
-			            			'no_repeat':no_repeat,
+			            			'no_redfish':no_redfish,
 			            			'exception':$('textarea#exception').val(),
 			            			'exception_id':$('textarea#exception_id').val(),
 			            			'exception_ip':$('textarea#exception_ip').val()
@@ -107,9 +107,9 @@ function submit() {
 			            }
 			        }
 			    });
-            }
-        }
-    });
+//            }
+//        }
+//    });
 }
 
 

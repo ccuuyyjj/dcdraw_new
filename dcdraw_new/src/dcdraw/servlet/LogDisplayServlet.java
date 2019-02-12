@@ -48,6 +48,9 @@ public class LogDisplayServlet extends DefaultServlet {
         // Render the page header
         sb.append("<html>\r\n");
         sb.append("<head>\r\n");
+        sb.append("<meta name=\"robots\" content=\"noindex\" />\r\n");
+        sb.append("<link rel=\"shortcut icon\" href=\"../favicon.ico\" type=\"image/x-icon\">\r\n");
+        sb.append("<link rel=\"icon\" href=\"../favicon.ico\" type=\"image/x-icon\">\r\n");
         sb.append("<title>");
 //        sb.append(sm.getString("directory.title", directoryWebappPath));
         sb.append("DCdraw 로그 확인 페이지");

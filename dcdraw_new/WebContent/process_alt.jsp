@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.regex.*, java.io.*, java.net.*, java.util.*, java.text.SimpleDateFormat, org.kopitubruk.util.json.*, dcdraw.*"
 	contentType="application/json" pageEncoding="UTF-8"%><%
 	response.setHeader("Cache-Control", "no-cache");
+	ResourceBundle prop = ResourceBundle.getBundle("proxy");
 	JsonObject json = new JsonObject();
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
@@ -17,7 +18,7 @@
 	*/
 	String[] remoteiparr = request.getRemoteAddr().split("\\.");
 	String URL = queryMap.get("url")[0];
-	Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("119.196.18.51", 8080));
+	Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(prop.getString("address"), Integer.parseInt(prop.getString("port"))));
 	int popul = Integer.parseInt(queryMap.get("popul")[0]);
 	int maxnum = Integer.parseInt(queryMap.get("maxnum")[0]);
 	Date cut = new SimpleDateFormat("yyyy MM/dd/HH/mm").parse(queryMap.get("cut")[0]);

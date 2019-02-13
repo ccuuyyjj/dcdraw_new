@@ -58,7 +58,7 @@
 								컷
 							</td>
 							<td style="text-align:left;padding:5px;" colspan='3'>
-					<select name='year' id='year'>
+					20<select name='year' id='year'>
 						<option value='2017' selected="selected">17</option><option value='2018' >18</option><option value='2019' >19</option><option value='2020' >20</option><option value='2021' >21</option>					</select>년
 					<select name='month' id='month'>
 						<option value='01' selected="selected">01</option><option value='02' >02</option><option value='03' >03</option><option value='04' >04</option><option value='05' >05</option><option value='06' >06</option><option value='07' >07</option><option value='08' >08</option><option value='09' >09</option><option value='10' >10</option><option value='11' >11</option><option value='12' >12</option>					</select>월
@@ -91,7 +91,7 @@
 								제외 닉네임(정확히)
 							</td>
 							<td style="text-align:left;padding:5px;" colspan='3'>
-                                <textarea id="exception" cols=40 rows=5 style="padding:0;text-align:left"></textarea>
+                                <textarea id="exception" cols=40 rows=5 style="padding:0;text-align:left" placeholder="원활한 이용을 위해 간곡히 요청드립니다."></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -99,12 +99,7 @@
 								제외 아이디(정확히)
 							</td>
 							<td style="text-align:left;padding:5px;" colspan='3'>
-                                <textarea id="exception_id" cols=40 rows=5 style="padding:0;text-align:left"></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td style="text-align:center;font-size:8pt;" colspan='4'>
-								여러 닉네임/아이디는 엔터 쳐서 구분
+                                <textarea id="exception_id" cols=40 rows=5 style="padding:0;text-align:left" placeholder="시험삼아 돌려보려고 하시는 경우에는 꼭!!"></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -112,14 +107,15 @@
 								제외 IP(정확히)
 							</td>
 							<td style="text-align:left;padding:5px;" colspan=3>
-								<textarea id="exception_ip" cols=40 rows=5 style="padding:0;text-align:left"></textarea>
+								<textarea id="exception_ip" cols=40 rows=5 style="padding:0;text-align:left" placeholder="추첨버튼 아래에 적혀있는 테스트모드 사용법을 읽어보시고 테스트모드를 이용해주세요."></textarea>
 							</td>
 						</tr>
 						<tr>
-							<td style="text-align:center;font-size:8pt;" colspan='4'>
-								제외 IP는 유동도 포함할 경우에 유동에 대해서만 적용됨(고닉에는 적용X)<br>
-								111.11.*.* 형식으로 기재(DC에 기재된거 복붙하세요.),여러 IP는 엔터 쳐서 구분<br><br>
-								<a href="public_logs/"><strong>※추첨자의 IP를 포함한 모든 추첨 기록은 전부 로그로 남습니다.(클릭하여 확인 가능)</strong></a><br>
+							<td style="text-align:center;font-size:9pt;" colspan='4'>
+								여러 닉네임/아이디/IP는 엔터 쳐서 구분하세요.<br>
+								제외 IP는 유동도 포함할 경우에 유동에 대해서만 적용됩니다.(고닉에는 적용X)<br>
+								IP 형식은 111.11같은 식으로 적어주세요.(예시: ㅇㅇ(39.7) -> 39.7))<br><br>
+								<a href="public_logs/"><strong>※추첨자의 IP를 포함한 모든 추첨 기록은 전부 로그로 남습니다.<br>(★☆★이곳을 클릭하면 로그 확인 가능!!★☆★)</strong></a><br><br>
 								IP 뒷자리를 포함한 로그 확인은 제작자(갤로그-<a href="http://gallog.dcinside.com/htckovsky">htckovsky</a>)에게 문의하세요.<br>
 							</td>
 						</tr>
@@ -139,8 +135,8 @@
 					</table>
 						<br>
 					<input type="submit" name="submit" class="button" id="button" value="" onClick="submit();return false" /><br>
-					<strong>추첨 버튼은 제에에에에에에발 한번만 눌러주세요.</strong><br>
-					<strong>시험삼아 돌려보는 경우에는 제외 닉네임,아이디,IP 입력란 첫줄에 테스트라고 쓰면 테스트모드가 됩니다. <a href="img/testmode_ex.png" target="_blank">[예시]</a></strong>
+					<strong>추첨 버튼은 제에에에에에에발 한번씩만 눌러주세요.</strong><br>
+					<strong>시험삼아 돌려보는 경우에는 제외 닉네임,아이디,IP 입력란 첫줄에 테스트라고 쓰면 테스트모드가 됩니다. <a href="img/testmode_ex.png" target="_blank">[입력방법 예시]</a></strong>
 		<div id="for_load" style="display:none">
 			<img src="img/ajax-loader.gif"><br/><br/><input type="button" value="취소" onclick="cancel()"/>
 		</div>

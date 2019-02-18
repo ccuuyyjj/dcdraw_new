@@ -3,6 +3,8 @@ function submit() {
 	if(grecaptcha.getResponse()=="") {
 		alert("스팸 방지용 reCAPTCHA를 확인해주세요!");
 	} else {
+		var recaptcha_response = grecaptcha.getResponse();
+    	grecaptcha.reset();
 		$('#for_load').attr("style", "display:;");
 		$('#button').attr("style", "display:none");
 		$('#showtime').attr("style", "display:none;");
@@ -31,10 +33,9 @@ function submit() {
 	            			'exception':$('textarea#exception').val(),
 	            			'exception_id':$('textarea#exception_id').val(),
 	            			'exception_ip':$('textarea#exception_ip').val(),
-	            			'g-recaptcha-response':grecaptcha.getResponse()
+	            			'g-recaptcha-response':recaptcha_response
 	            		},
 	                    success:function(result){
-	                    	grecaptcha.reset();
 	                        if(result['result']==true){
 	            				$('#result').html(result['winner']);
 	            				$('#list').html(result['list']);
@@ -51,7 +52,6 @@ function submit() {
 	            			}
 	                    },
 	                    error:function(error) {
-	                			grecaptcha.reset();
 		                    	$('#for_load').attr("style", "display:none;");
 		        				$('#button').attr("style", "display:;");
 		            			alert("에러 발생! 문제가 계속 발생 시 제작자에게 문의주세요!");
@@ -83,10 +83,9 @@ function submit() {
 				            			'exception':$('textarea#exception').val(),
 				            			'exception_id':$('textarea#exception_id').val(),
 				            			'exception_ip':$('textarea#exception_ip').val(),
-				            			'g-recaptcha-response':grecaptcha.getResponse()
+				            			'g-recaptcha-response':recaptcha_response
 				            		},
 				                    success:function(result){
-				                    	grecaptcha.reset();
 				                        if(result['result']==true){
 				            				$('#result').html(result['winner']);
 				            				$('#list').html(result['list']);
@@ -103,14 +102,12 @@ function submit() {
 				            			}
 				                    },
 				                    error:function(error) {
-				                    	grecaptcha.reset();
 				                    	$('#for_load').attr("style", "display:none;");
 				        				$('#button').attr("style", "display:;");
 				            			alert("에러 발생! 문제가 계속 발생 시 제작자에게 문의주세요!");
 				                        }
 				            	});
 							} else {
-								grecaptcha.reset();
 								$('#for_load').attr("style", "display:none;");
 								$('#button').attr("style", "display:;");
 				            	alert("현재 추첨기 서버(미국 서부에 위치함)에서 디시인사이드 댓글 서버에 접근이 불가능하여 탑승자 목록 불러오기에 실패했습니다.\n디시인사이드 측에서 DDOS 공격 방어등의 이유로 해외 접속을 임시 차단해놓았을 수 있으니 자정 이후에 다시 시도해보세요.");
@@ -125,7 +122,6 @@ function submit() {
 
 
 function cancel(){
-	grecaptcha.reset();
     $('#for_load').attr("style", "display:none;");
     $('#button').attr("style", "display:;");
     $('#showtime').attr("style", "display:none;");

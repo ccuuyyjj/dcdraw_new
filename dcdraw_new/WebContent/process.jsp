@@ -1,6 +1,8 @@
 <%@ page language="java" import="java.util.regex.*, java.io.*, java.net.*, java.util.*, java.text.SimpleDateFormat, org.kopitubruk.util.json.*, dcdraw.*"
 	contentType="application/json" pageEncoding="UTF-8"%><%
 	response.setHeader("Cache-Control", "no-cache");
+	ResourceBundle g_recaptcha_prop = ResourceBundle.getBundle("recaptcha");
+	String g_recaptcha_secret = g_recaptcha_prop.getString("secret");
 	JsonObject json = new JsonObject();
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
@@ -60,114 +62,145 @@
 		}
 	}
 	
-	if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")||URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no="))){
-		if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")){
-			String[] tmp = URL.substring(25).split("\\/");
-			id = tmp[0];
-			no = tmp[1];
-		} else if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")){
-			String[] tmp = URL.substring(28).split("\\/");
-			id = tmp[0];
-			no = tmp[1];
-		} else {
-			id = URL.substring(URL.indexOf("id=")+3);
-			id = id.substring(0, id.indexOf("&"));
-			no = URL.substring(URL.indexOf("no=")+3);
-		}
-		if(no.indexOf("&") != -1)
-			no = no.substring(0, no.indexOf("&"));
-		List<Comment> comment_list = CommentParser.parse(id, Integer.parseInt(no));
-		
-		List<String> list = new ArrayList<>();
-		outerloop:
-		for(int i = 0; i < comment_list.size(); i++){
-			Comment c = comment_list.get(i);
-			if(maxnum > 0 && list.size() >= maxnum){
-				break;
-			}
-			if(c.getRetime().after(cut)){
-				continue;
-			}
-			if(c.getUser_id().startsWith("yudong:")){
-				String name = c.getUser_nick() + "(" + c.getUser_id().substring(7) + ")";
-				if(no_yudong){
-					continue;
-				}
-				if(no_repeat){
-					if(list.contains(name)){
-						continue;
-					}
-				}
-				if(!ex_nick_list.get(0).isEmpty()){
-					for(String ex : ex_nick_list)
-						if(c.getUser_nick().equals(ex.trim()))
-							continue outerloop;
-				}
-				if(!ex_ip_list.get(0).isEmpty()){
-					for(String ex : ex_ip_list)
-						if(c.getUser_id().substring(7).equals(ex.trim()))
-							continue outerloop;
-				}
-				list.add(name);
-			} else {
-				String name = c.getUser_nick() + "(" + c.getUser_id() + ")";
-				if(no_repeat) {
-					if(list.contains(name)){
-						continue;
-					}
-				}
-				if(!ex_nick_list.get(0).isEmpty()){
-					for(String ex : ex_nick_list){
-						if(c.getUser_nick().equals(ex.trim()))
-							continue outerloop;
-					}
-				}
-				if(!ex_id_list.get(0).isEmpty()){
-					for(String ex : ex_id_list)
-						if(c.getUser_id().equals(ex.trim()))
-							continue outerloop;
-				}
-				list.add(name);
-			}
-		}
-		
-		//{"result":true,"list":"asdf, fdsf, abc","cnt":7,"winner":"asdf"}
-		if(list.size() == 0){
-			log_enabled = false;
-			json.add("result", false);
-			json.add("msg", "조건에 맞는 갤러가 아무도 음슴..;;");
-		} else if(list.size() < popul) {
-			log_enabled = false;
-			json.add("result", false);
-			json.add("msg", "조건에 맞는 갤러가 추첨수보다 적음..;;");
-		} else {
-			winner = new ArrayList<>();
-			json.add("result", true);
-			StringBuilder list_str = new StringBuilder();
-			for(String s : list){
-				list_str.append(s).append(", ");
-			}
-			json.add("list", list_str.toString().substring(0, list_str.length()-2));
-			json.add("cnt", list.size());
-			for(int i = 1; i <= popul; i++){
-				int winner_idx = (int)(Math.random() * list.size());
-				winner.add(list.get(winner_idx));
-				list.remove(winner_idx);
-			}
-			StringBuilder winner_str = new StringBuilder();
-			for(String s : winner){
-				winner_str.append(s).append(", ");
-			}
-			if(test_mode)
-				json.add("winner", winner_str.toString().substring(0, winner_str.length()-2) + " (테스트 모드)");
-			else
-				json.add("winner", winner_str.toString().substring(0, winner_str.length()-2));
-		}
-	} else {
+	String g_recaptcha_response = queryMap.get("g-recaptcha-response")[0];
+	// 토큰과 보안키를 가지고 성공 여부를 확인 함
+    HttpURLConnection conn = (HttpURLConnection) new URL("https://www.google.com/recaptcha/api/siteverify").openConnection();
+    String params = "secret="+ g_recaptcha_secret + "&response=" + g_recaptcha_response;
+    conn.setRequestMethod("POST");
+    conn.setDoOutput(true);
+    DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+    wr.writeBytes(params);
+    wr.flush();
+    wr.close();
+    
+    // 결과코드 확인(200 : 성공)
+    int responseCode = conn.getResponseCode();
+    StringBuffer responseBody = new StringBuffer();
+    if (responseCode == 200) {
+        
+        // 데이터 추출
+        BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(bis));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            responseBody.append(line);
+        }
+        bis.close();
+    }
+    if(responseBody.toString().indexOf("\"success\": true") > -1){
+    	if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")||URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no="))){
+    		if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")){
+    			String[] tmp = URL.substring(25).split("\\/");
+    			id = tmp[0];
+    			no = tmp[1];
+    		} else if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")){
+    			String[] tmp = URL.substring(28).split("\\/");
+    			id = tmp[0];
+    			no = tmp[1];
+    		} else {
+    			id = URL.substring(URL.indexOf("id=")+3);
+    			id = id.substring(0, id.indexOf("&"));
+    			no = URL.substring(URL.indexOf("no=")+3);
+    		}
+    		if(no.indexOf("&") != -1)
+    			no = no.substring(0, no.indexOf("&"));
+    		List<Comment> comment_list = CommentParser.parse(id, Integer.parseInt(no));
+    		
+    		List<String> list = new ArrayList<>();
+    		outerloop:
+    		for(int i = 0; i < comment_list.size(); i++){
+    			Comment c = comment_list.get(i);
+    			if(maxnum > 0 && list.size() >= maxnum){
+    				break;
+    			}
+    			if(c.getRetime().after(cut)){
+    				continue;
+    			}
+    			if(c.getUser_id().startsWith("yudong:")){
+    				String name = c.getUser_nick() + "(" + c.getUser_id().substring(7) + ")";
+    				if(no_yudong){
+    					continue;
+    				}
+    				if(no_repeat){
+    					if(list.contains(name)){
+    						continue;
+    					}
+    				}
+    				if(!ex_nick_list.get(0).isEmpty()){
+    					for(String ex : ex_nick_list)
+    						if(c.getUser_nick().equals(ex.trim()))
+    							continue outerloop;
+    				}
+    				if(!ex_ip_list.get(0).isEmpty()){
+    					for(String ex : ex_ip_list)
+    						if(c.getUser_id().substring(7).equals(ex.trim()))
+    							continue outerloop;
+    				}
+    				list.add(name);
+    			} else {
+    				String name = c.getUser_nick() + "(" + c.getUser_id() + ")";
+    				if(no_repeat) {
+    					if(list.contains(name)){
+    						continue;
+    					}
+    				}
+    				if(!ex_nick_list.get(0).isEmpty()){
+    					for(String ex : ex_nick_list){
+    						if(c.getUser_nick().equals(ex.trim()))
+    							continue outerloop;
+    					}
+    				}
+    				if(!ex_id_list.get(0).isEmpty()){
+    					for(String ex : ex_id_list)
+    						if(c.getUser_id().equals(ex.trim()))
+    							continue outerloop;
+    				}
+    				list.add(name);
+    			}
+    		}
+    		
+    		//{"result":true,"list":"asdf, fdsf, abc","cnt":7,"winner":"asdf"}
+    		if(list.size() == 0){
+    			log_enabled = false;
+    			json.add("result", false);
+    			json.add("msg", "조건에 맞는 갤러가 아무도 음슴..;;");
+    		} else if(list.size() < popul) {
+    			log_enabled = false;
+    			json.add("result", false);
+    			json.add("msg", "조건에 맞는 갤러가 추첨수보다 적음..;;");
+    		} else {
+    			winner = new ArrayList<>();
+    			json.add("result", true);
+    			StringBuilder list_str = new StringBuilder();
+    			for(String s : list){
+    				list_str.append(s).append(", ");
+    			}
+    			json.add("list", list_str.toString().substring(0, list_str.length()-2));
+    			json.add("cnt", list.size());
+    			for(int i = 1; i <= popul; i++){
+    				int winner_idx = (int)(Math.random() * list.size());
+    				winner.add(list.get(winner_idx));
+    				list.remove(winner_idx);
+    			}
+    			StringBuilder winner_str = new StringBuilder();
+    			for(String s : winner){
+    				winner_str.append(s).append(", ");
+    			}
+    			if(test_mode)
+    				json.add("winner", winner_str.toString().substring(0, winner_str.length()-2) + " (테스트 모드)");
+    			else
+    				json.add("winner", winner_str.toString().substring(0, winner_str.length()-2));
+    		}
+    	} else {
+    		log_enabled = false;
+    		json.add("result", false);
+    		json.add("msg", "url형식이 잘못되었습니다.");
+    	}
+    } else {
 		log_enabled = false;
 		json.add("result", false);
-		json.add("msg", "url형식이 잘못되었습니다.");
-	}
+		json.add("msg", "reCAPTCHA 검증에 실패했습니다.");
+    }
 	
 	if(!test_mode){ //테스트모드에선 로그를 남기지 않음.
 		/*

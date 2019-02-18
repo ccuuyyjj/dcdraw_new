@@ -10,6 +10,7 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://cdn.rawgit.com/taylorhakes/promise-polyfill/1365ba35/dist/polyfill.min.js"></script>
 <script src="https://cdn.rawgit.com/rndme/download/09d6492f/download.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="dcdraw.js"></script>
 <title>DC추첨(Fixed)</title>
 </head>
@@ -108,6 +109,14 @@
 							</td>
 							<td style="text-align:left;padding:5px;" colspan=3>
 								<textarea id="exception_ip" cols=40 rows=5 style="padding:0;text-align:left" placeholder="추첨버튼 아래에 적혀있는 테스트모드 사용법을 읽어보시고 테스트모드를 이용해주세요."></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+								스팸 방지용 reCAPTCHA
+							</td>
+							<td style="text-align:center;" colspan=3>
+								<div class="g-recaptcha" data-sitekey="6LfWHZIUAAAAAISkXpt2Xe7PbgY-T_BsYICC-oBt" style="display: inline-block;"></div>
 							</td>
 						</tr>
 						<tr>

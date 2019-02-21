@@ -36,8 +36,7 @@
 	List<String> winner = null;
 	boolean log_enabled = true;
 	boolean log_public_enabled = true;
-	boolean test_mode = false;
-	if(ex_nick_list.get(0).equals("테스트") && ex_id_list.get(0).equals("테스트") && ex_ip_list.get(0).equals("테스트")) test_mode = true;
+	boolean test_mode = queryMap.get("testmode")[0].equals("Y")?true:false;
 
 	if(no_redfish){
 		Pattern p = Pattern.compile("\\(([^()]+)\\)<\\/a><br>");

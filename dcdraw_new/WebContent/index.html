@@ -75,16 +75,23 @@
 						</tr>
 						<tr>
 							<td style="text-align:right;border-right:1px solid black;padding:5px;">
-								유동 제외
+								옵션
 							</td>
-							<td style="text-align:left;padding:5px;">
-								<input type="checkbox" id="no_yudong" value='1'>
-							</td>
-							<td style="text-align:right;border-right:1px solid black;padding:5px;font-weight: bold;">
-								최근 당첨자 제외
-							</td>
-							<td style="text-align:left;padding:5px;">
-								<input type="checkbox" id="no_redfish" value='1'>
+							<td style="text-align:left;padding:5px;" colspan='3'>
+								<label for="no_yudong">
+									유동 제외
+								</label>
+								<input type="checkbox" id="no_yudong" value='1' style="vertical-align: middle;">
+								
+								<label for="no_redfish">
+									최근 당첨자 제외
+								</label>
+								<input type="checkbox" id="no_redfish" value='1' style="vertical-align: middle;">
+								
+								<label for="testmode" style="font-weight: bold;">
+									[테스트 모드]
+								</label>
+								<input type="checkbox" id="testmode" value='1' style="vertical-align: middle;">
 							</td>
 						</tr>
 						<tr>
@@ -100,7 +107,7 @@
 								제외 아이디(정확히)
 							</td>
 							<td style="text-align:left;padding:5px;" colspan='3'>
-                                <textarea id="exception_id" cols=40 rows=5 style="padding:0;text-align:left" placeholder="시험삼아 돌려보려고 하시는 경우에는 꼭!!"></textarea>
+                                <textarea id="exception_id" cols=40 rows=5 style="padding:0;text-align:left" placeholder="시험삼아 돌시는 경우에는 꼭! 반드시!"></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -108,7 +115,7 @@
 								제외 IP(정확히)
 							</td>
 							<td style="text-align:left;padding:5px;" colspan=3>
-								<textarea id="exception_ip" cols=40 rows=5 style="padding:0;text-align:left" placeholder="추첨버튼 아래에 적혀있는 테스트모드 사용법을 읽어보시고 테스트모드를 이용해주세요."></textarea>
+								<textarea id="exception_ip" cols=40 rows=5 style="padding:0;text-align:left" placeholder="옵션에 있는 테스트모드를 이용해주세요!!"></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -143,9 +150,9 @@
 						</tr>
 					</table>
 						<br>
-					<input type="submit" name="submit" class="button" id="button" value="" onClick="submit();return false" /><br>
-					<strong>추첨 버튼은 제에에에에에에발 한번씩만 눌러주세요.</strong><br>
-					<strong>시험삼아 돌려보는 경우에는 제외 닉네임,아이디,IP 입력란 첫줄에 테스트라고 쓰면 테스트모드가 됩니다. <a href="img/testmode_ex.png" target="_blank">[입력방법 예시]</a></strong>
+					<input type="submit" name="submit" class="button" id="button" value="" onClick="submit();return false" /><br><br>
+					<strong>추첨 버튼은 제에에에에에에발 꼭꼭꼭꼭 한번씩만 눌러주세요.</strong><br>
+					<strong>시험삼아 돌려보는 경우에는  꼭 테스트모드를 이용해주세요!</strong>
 		<div id="for_load" style="display:none">
 			<img src="img/ajax-loader.gif"><br/><br/><input type="button" value="취소" onclick="cancel()"/>
 		</div>

@@ -19,6 +19,8 @@ function submit() {
 	            	else no_yudong = 'N';
 	            	if($("input:checkbox[id='no_redfish']").is(":checked")) no_redfish = 'Y';
 	            	else no_redfish= 'N';
+	            	if($("input:checkbox[id='testmode']").is(":checked")) testmode = 'Y';
+	            	else testmode= 'N';
 	            	$.ajax({
 	                    url:'process.jsp',
 	                    dataType:'json',
@@ -30,6 +32,7 @@ function submit() {
 	            			'cut':$(cut).val(),
 	            			'no_yudong':no_yudong,
 	            			'no_redfish':no_redfish,
+	            			'testmode':testmode,
 	            			'exception':$('textarea#exception').val(),
 	            			'exception_id':$('textarea#exception_id').val(),
 	            			'exception_ip':$('textarea#exception_ip').val(),
@@ -69,6 +72,8 @@ function submit() {
 				            	else no_yudong = 'N';
 				            	if($("input:checkbox[id='no_redfish']").is(":checked")) no_redfish = 'Y';
 				            	else no_redfish= 'N';
+				            	if($("input:checkbox[id='testmode']").is(":checked")) testmode = 'Y';
+				            	else testmode= 'N';
 				            	$.ajax({
 				                    url:'process_alt.jsp',
 				                    dataType:'json',
@@ -80,6 +85,7 @@ function submit() {
 				            			'cut':$(cut).val(),
 				            			'no_yudong':no_yudong,
 				            			'no_redfish':no_redfish,
+				            			'testmode':testmode,
 				            			'exception':$('textarea#exception').val(),
 				            			'exception_id':$('textarea#exception_id').val(),
 				            			'exception_ip':$('textarea#exception_ip').val(),

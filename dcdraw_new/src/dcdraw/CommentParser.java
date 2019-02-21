@@ -26,7 +26,7 @@ public class CommentParser {
 	@SuppressWarnings("unchecked")
 	public static List<Comment> parse(String id, int no) throws IOException, ParseException, InterruptedException {
 		String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36";
-		String URL = "http://gall.dcinside.com/board/comment_view/?id=" + id + "&no=" + no;
+		String URL = "https://gall.dcinside.com/board/comment_view/?id=" + id + "&no=" + no;
 		List<Comment> list = new ArrayList<>();
 		Response response = null;
 
@@ -61,7 +61,7 @@ public class CommentParser {
 		int page = 1;
 		while (true) {
 			try {
-				response = Jsoup.connect("http://gall.dcinside.com/board/comment/")
+				response = Jsoup.connect("https://gall.dcinside.com/board/comment/")
 						.userAgent(userAgent)
 						.cookies(cookie)
 						.header("X-Requested-With", "XMLHttpRequest")
@@ -110,7 +110,7 @@ public class CommentParser {
 			page++;
 			while (true) {
 				try {
-					response = Jsoup.connect("http://gall.dcinside.com/board/comment/")
+					response = Jsoup.connect("https://gall.dcinside.com/board/comment/")
 							.userAgent(userAgent)
 							.cookies(cookie)
 							.header("X-Requested-With", "XMLHttpRequest")
@@ -159,7 +159,7 @@ public class CommentParser {
 	@SuppressWarnings("unchecked")
 	public static List<Comment> parse_alt(String id, int no, Proxy proxy) throws IOException, ParseException, InterruptedException {
 		String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36";
-		String URL = "http://gall.dcinside.com/board/comment_view/?id=" + id + "&no=" + no;
+		String URL = "https://gall.dcinside.com/board/comment_view/?id=" + id + "&no=" + no;
 		List<Comment> list = new ArrayList<>();
 		Response response = null;
 
@@ -195,7 +195,7 @@ public class CommentParser {
 		int page = 1;
 		while (true) {
 			try {
-				response = Jsoup.connect("http://gall.dcinside.com/board/comment/")
+				response = Jsoup.connect("https://gall.dcinside.com/board/comment/")
 						.proxy(proxy)
 						.userAgent(userAgent)
 						.cookies(cookie)
@@ -245,7 +245,7 @@ public class CommentParser {
 			page++;
 			while (true) {
 				try {
-					response = Jsoup.connect("http://gall.dcinside.com/board/comment/")
+					response = Jsoup.connect("https://gall.dcinside.com/board/comment/")
 							.proxy(proxy)
 							.userAgent(userAgent)
 							.cookies(cookie)

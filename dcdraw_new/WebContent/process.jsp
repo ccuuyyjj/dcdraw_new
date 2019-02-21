@@ -88,13 +88,21 @@
         bis.close();
     }
     if(responseBody.toString().indexOf("\"success\": true") > -1){
-    	if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")||URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no="))){
+    	if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")||URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||URL.matches("^https:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")||URL.matches("^https:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no="))){
     		if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")){
     			String[] tmp = URL.substring(25).split("\\/");
     			id = tmp[0];
     			no = tmp[1];
     		} else if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")){
     			String[] tmp = URL.substring(28).split("\\/");
+    			id = tmp[0];
+    			no = tmp[1];
+    		} else if(URL.matches("^https:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")){
+    			String[] tmp = URL.substring(26).split("\\/");
+    			id = tmp[0];
+    			no = tmp[1];
+    		} else if(URL.matches("^https:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")){
+    			String[] tmp = URL.substring(29).split("\\/");
     			id = tmp[0];
     			no = tmp[1];
     		} else {
@@ -268,7 +276,7 @@
 			StringBuilder winner_str = new StringBuilder();
 			for(String s : winner){
 				if(size < 20){
-					winner_str.append("<a href=\"http://gall.dcinside.com/").append(id).append("/").append(no).append("\" target=\"_blank\">").append(s).append("</a><br>");
+					winner_str.append("<a href=\"https://gall.dcinside.com/").append(id).append("/").append(no).append("\" target=\"_blank\">").append(s).append("</a><br>");
 			    	winner_str.append(System.lineSeparator());
 			    	size++;
 				}

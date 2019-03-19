@@ -135,16 +135,12 @@
     						continue;
     					}
     				}
-    				if(!ex_nick_list.get(0).isEmpty()){
-    					for(String ex : ex_nick_list)
-    						if(c.getUser_nick().equals(ex.trim()))
-    							continue outerloop;
-    				}
-    				if(!ex_ip_list.get(0).isEmpty()){
-    					for(String ex : ex_ip_list)
-    						if(c.getUser_id().substring(7).equals(ex.trim()))
-    							continue outerloop;
-    				}
+   					for(String ex : ex_nick_list)
+   						if(c.getUser_nick().equals(ex.trim()))
+   							continue outerloop;
+   					for(String ex : ex_ip_list)
+   						if(c.getUser_id().substring(7).equals(ex.trim()))
+   							continue outerloop;
     				list.add(name);
     			} else {
     				String name = c.getUser_nick() + "(" + c.getUser_id() + ")";
@@ -153,17 +149,13 @@
     						continue;
     					}
     				}
-    				if(!ex_nick_list.get(0).isEmpty()){
-    					for(String ex : ex_nick_list){
-    						if(c.getUser_nick().equals(ex.trim()))
-    							continue outerloop;
-    					}
-    				}
-    				if(!ex_id_list.get(0).isEmpty()){
-    					for(String ex : ex_id_list)
-    						if(c.getUser_id().equals(ex.trim()))
-    							continue outerloop;
-    				}
+   					for(String ex : ex_nick_list){
+   						if(c.getUser_nick().equals(ex.trim()))
+   							continue outerloop;
+   					}
+   					for(String ex : ex_id_list)
+   						if(c.getUser_id().equals(ex.trim()))
+   							continue outerloop;
     				list.add(name);
     			}
     		}

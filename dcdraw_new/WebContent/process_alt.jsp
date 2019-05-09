@@ -145,9 +145,13 @@
     			} else {
     				String name = c.getUser_nick() + "(" + c.getUser_id() + ")";
     				if(no_repeat) {
-    					if(list.contains(name)){
-    						continue;
-    					}
+//     					if(list.contains(name)){
+// 							continue;
+// 						}
+						for(String n : list){
+							if(n.contains("(" + c.getUser_id() + ")"))
+								continue outerloop;
+						}
     				}
    					for(String ex : ex_nick_list){
    						if(c.getUser_nick().equals(ex.trim()))

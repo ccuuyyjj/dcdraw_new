@@ -95,6 +95,8 @@ public class CommentParser {
 			if (Integer.parseInt(cmt.get("depth").toString()) > 0)
 				comment_cnt++;
 			String user_nick = cmt.get("name").toString();
+			if (user_nick.isEmpty())
+				user_nick = "[공백]";
 			String user_id = cmt.get("user_id").toString();
 			if (user_id.isEmpty())
 				user_id = "yudong:" + cmt.get("ip").toString();
@@ -142,6 +144,8 @@ public class CommentParser {
 				if (Integer.parseInt(cmt.get("depth").toString()) > 0)
 					comment_cnt++;
 				String user_nick = cmt.get("name").toString();
+				if (user_nick.isEmpty())
+					user_nick = "[공백]";
 				String user_id = cmt.get("user_id").toString();
 				if (user_id.isEmpty())
 					user_id = "yudong:" + cmt.get("ip").toString();
@@ -230,6 +234,8 @@ public class CommentParser {
 			if (Integer.parseInt(cmt.get("depth").toString()) > 0)
 				comment_cnt++;
 			String user_nick = cmt.get("name").toString();
+			if (user_nick.isEmpty())
+				user_nick = "[공백]";
 			String user_id = cmt.get("user_id").toString();
 			if (user_id.isEmpty())
 				user_id = "yudong:" + cmt.get("ip").toString();
@@ -278,6 +284,8 @@ public class CommentParser {
 				if (Integer.parseInt(cmt.get("depth").toString()) > 0)
 					comment_cnt++;
 				String user_nick = cmt.get("name").toString();
+				if (user_nick.isEmpty())
+					user_nick = "[공백]";
 				String user_id = cmt.get("user_id").toString();
 				if (user_id.isEmpty())
 					user_id = "yudong:" + cmt.get("ip").toString();

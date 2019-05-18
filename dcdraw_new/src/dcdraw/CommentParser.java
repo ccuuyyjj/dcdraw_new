@@ -90,8 +90,12 @@ public class CommentParser {
 		ArrayList<LinkedHashMap<String, Object>> comments = (ArrayList<LinkedHashMap<String, Object>>) json
 				.get("comments");
 		for (LinkedHashMap<String, Object> cmt : comments) {
-			if (cmt.get("nicktype").equals("COMMENT_BOY") || cmt.get("is_delete").equals("1"))
+			if (cmt.get("nicktype").equals("COMMENT_BOY"))
 				continue;
+			if (cmt.get("is_delete").equals("1")) {
+				total_cnt--;
+				continue;
+			}
 			if (Integer.parseInt(cmt.get("depth").toString()) > 0)
 				comment_cnt++;
 			String user_nick = cmt.get("name").toString();
@@ -141,6 +145,10 @@ public class CommentParser {
 			for (LinkedHashMap<String, Object> cmt : comments) {
 				if (cmt.get("nicktype").equals("COMMENT_BOY"))
 					continue;
+				if (cmt.get("is_delete").equals("1")) {
+					total_cnt--;
+					continue;
+				}
 				if (Integer.parseInt(cmt.get("depth").toString()) > 0)
 					comment_cnt++;
 				String user_nick = cmt.get("name").toString();
@@ -302,6 +310,6 @@ public class CommentParser {
 	}
 
 //	public static void main(String[] args) throws IOException, ParseException, InterruptedException {
-//		System.out.println(CommentParser.parse("mabi_heroes", 8055502).size());
+//		System.out.println(CommentParser.parse("mabi_heroes", 8563305));
 //	}
 }

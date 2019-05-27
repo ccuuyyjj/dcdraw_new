@@ -159,6 +159,7 @@ function numbersonly(e, decimal) {
         return false;
 }
 function capture(){
+	window.scrollTo(0,0);
 	html2canvas(document.querySelector("#off-wrap"), {
 	    windowWidth: document.querySelector("#off-wrap").scrollWidth,
 	    windowHeight: document.querySelector("#off-wrap").scrollHeight

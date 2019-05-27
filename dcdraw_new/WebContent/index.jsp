@@ -1,4 +1,18 @@
-<!DOCTYPE html>
+<%@ page language="java" import="java.util.*, java.io.*" contentType="text/html" pageEncoding="UTF-8"%><%
+	File target = new File(application.getRealPath("/"), "recent-db");
+	if(!target.exists()) target.createNewFile();
+	StringBuilder winner_str = new StringBuilder();
+	while(!target.canRead()){
+        Thread.sleep(100);
+    }
+	BufferedReader reader = new BufferedReader(new FileReader(target));
+	String line = reader.readLine();
+    while (line != null) {
+    	winner_str.append(line);
+    	winner_str.append(System.lineSeparator());
+        line = reader.readLine();
+    }
+    reader.close();%><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -34,20 +48,20 @@
 										<label class="error" for="track" id="track_error">추첨페이지 URL 입력</label><BR><BR>
 					<table style="width:100%;border:0;margin:0 auto">
 						<tr>
-							<td style="vertical-align: top;text-align:center;border-right:2px dotted black;padding:10px;">
+							<td style="vertical-align: top;text-align:center;border: 0 solid black;border-right-width:2px;padding:10px;">
 								<h3>최근 당첨자 목록 (20명만 표시)</h3>
-								<iframe id="recent-list" src="recent.jsp" style="border-width: 0px;width: 250px;height: 400px; overflow: hidden;"></iframe>
+								<div id="recent"><%=winner_str.toString()%></div>
 							</td>
 							<td>
 												<table style="border:0;margin:0 auto">
 						<tr>
-							<td style="width:130px;text-align:right;border-right:1px solid black;padding:5px;">
+							<td style="width:130px;text-align:right;border: 0px solid black; border-right-width: 1px;padding:5px;">
 								당첨자 수
 							</td>
 							<td style="width:75px;text-align:left;padding:5px 0px 5px 5px;">
 								<input type="text" id="popul" size="3" onKeyPress="return numbersonly(event, false)"  style="ime-mode:disabled" maxlength="3" value="1"/>
 							</td>
-							<td style="width:130px;text-align:right;border-right:1px solid black;padding: 5px 5px 5px 0px;">
+							<td style="width:130px;text-align:right;border: 0px solid black; border-right-width: 1px;padding: 5px 5px 5px 0px;">
 								인원 제한 (0: 무제한)
 							</td>
 							<td style="text-align:left;padding:5px;">
@@ -55,7 +69,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+							<td style="text-align:right;border: 0px solid black; border-right-width: 1px;padding:5px;">
 								컷
 							</td>
 							<td style="text-align:left;padding:5px;" colspan='3'>
@@ -74,7 +88,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+							<td style="text-align:right;border: 0px solid black; border-right-width: 1px;padding:5px;">
 								옵션
 							</td>
 							<td style="text-align:left;padding:5px;" colspan='3'>
@@ -95,7 +109,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+							<td style="text-align:right;border: 0px solid black; border-right-width: 1px;padding:5px;">
 								제외 닉네임(정확히)
 							</td>
 							<td style="text-align:left;padding:5px;" colspan='3'>
@@ -103,7 +117,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+							<td style="text-align:right;border: 0px solid black; border-right-width: 1px;padding:5px;">
 								제외 아이디(정확히)
 							</td>
 							<td style="text-align:left;padding:5px;" colspan='3'>
@@ -111,7 +125,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+							<td style="text-align:right;border: 0px solid black; border-right-width: 1px;padding:5px;">
 								제외 IP(정확히)
 							</td>
 							<td style="text-align:left;padding:5px;" colspan=3>
@@ -119,7 +133,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="text-align:right;border-right:1px solid black;padding:5px;">
+							<td style="text-align:right;border: 0px solid black; border-right-width: 1px;padding:5px;">
 								스팸 방지용 reCAPTCHA
 							</td>
 							<td style="text-align:left;padding:5px;" colspan=3>

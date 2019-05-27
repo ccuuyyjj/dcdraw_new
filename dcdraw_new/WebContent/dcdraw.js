@@ -45,8 +45,9 @@ function submit() {
 	            				$('#num').html(result['cnt']+'명');
 	            				$('#showtime').attr("style", "display:;");
 	            				$('#for_load').attr("style", "display:none;");
-	            				var iframe = document.getElementById('recent-list');
-	            				iframe.src = iframe.src;
+	            				$.get("recent-db", function(html){
+	            					document.getElementById('recent').innerHTML = html;
+	            				});
 	            			}
 	            			if(result['result']!==true){
 	            				$('#for_load').attr("style", "display:none;");
@@ -98,8 +99,9 @@ function submit() {
 				            				$('#num').html(result['cnt']+'명');
 				            				$('#showtime').attr("style", "display:;");
 				            				$('#for_load').attr("style", "display:none;");
-				            				var iframe = document.getElementById('recent-list');
-				            				iframe.src = iframe.src;
+				            				$.get("recent-db", function(html){
+				            					document.getElementById('recent').innerHTML = html;
+				            				});
 				            			}
 				            			if(result['result']!==true){
 				            				$('#for_load').attr("style", "display:none;");
@@ -157,7 +159,10 @@ function numbersonly(e, decimal) {
         return false;
 }
 function capture(){
-	html2canvas(document.querySelector("#off-wrap")).then(function(canvas){
+	html2canvas(document.querySelector("#off-wrap"), {
+	    windowWidth: document.querySelector("#off-wrap").scrollWidth,
+	    windowHeight: document.querySelector("#off-wrap").scrollHeight
+	}).then(function(canvas) {
 		download(canvas.toDataURL('image/png'),'dcdraw'+Date.now()+'.png');
 	});
 }

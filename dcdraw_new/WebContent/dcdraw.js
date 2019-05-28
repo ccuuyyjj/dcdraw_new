@@ -162,7 +162,16 @@ function capture(){
 	window.scrollTo(0,0);
 	html2canvas(document.querySelector("#off-wrap"), {
 	    windowWidth: document.querySelector("#off-wrap").scrollWidth,
-	    windowHeight: document.querySelector("#off-wrap").scrollHeight
+	    windowHeight: document.querySelector("#off-wrap").scrollHeight,
+	    onclone: function(doc){
+	    	var exception_val = $("#exception", doc).val().replace(/\n/gi, "<br>");
+	    	var exception_id_val = $("#exception_id", doc).val().replace(/\n/gi, "<br>");
+	    	var exception_ip_val = $("#exception_ip", doc).val().replace(/\n/gi, "<br>");
+	    	
+	    	$("#exception", doc).replaceWith("<div style='padding:2px;width:290px;min-height:80px;border:1px solid black;background-color:white;'>" + exception_val + "</div>");
+	    	$("#exception_id", doc).replaceWith("<div style='padding:2px;width:290px;min-height:80px;border:1px solid black;background-color:white;'>" + exception_id_val + "</div>");
+	    	$("#exception_ip", doc).replaceWith("<div style='padding:2px;width:290px;min-height:80px;border:1px solid black;background-color:white;'>" + exception_ip_val + "</div>");
+	    }
 	}).then(function(canvas) {
 		download(canvas.toDataURL('image/png'),'dcdraw'+Date.now()+'.png');
 	});

@@ -132,12 +132,12 @@
 								<textarea id="exception_ip" cols=40 rows=5 style="padding:0;text-align:left" placeholder="옵션에 있는 테스트모드를 이용해주세요!!"></textarea>
 							</td>
 						</tr>
-						<tr>
-							<td style="text-align:right;border: 0px solid black; border-right-width: 1px;padding:5px;">
+						<tr data-html2canvas-ignore>
+							<td style="text-align:right;border: 0px solid black; border-right-width: 1px;padding:5px;" data-html2canvas-ignore>
 								스팸 방지용 reCAPTCHA
 							</td>
-							<td style="text-align:left;padding:5px;" colspan=3>
-								<div class="g-recaptcha" data-sitekey="6LfWHZIUAAAAAISkXpt2Xe7PbgY-T_BsYICC-oBt" style="display: inline-block;"></div>
+							<td style="text-align:left;padding:5px;" colspan=3 data-html2canvas-ignore>
+								<div data-html2canvas-ignore class="g-recaptcha" data-sitekey="6LfWHZIUAAAAAISkXpt2Xe7PbgY-T_BsYICC-oBt" style="display: inline-block;"></div>
 							</td>
 						</tr>
 						<tr>

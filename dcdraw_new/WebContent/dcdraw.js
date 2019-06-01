@@ -161,8 +161,9 @@ function numbersonly(e, decimal) {
 function capture(){
 	window.scrollTo(0,0);
 	html2canvas(document.querySelector("#off-wrap"), {
-	    windowWidth: document.querySelector("#off-wrap").scrollWidth,
 	    windowHeight: document.querySelector("#off-wrap").scrollHeight,
+	    height: document.querySelector("#off-wrap").scrollHeight - 91,
+	    x: document.querySelector("#off-wrap").offsetLeft + 9,
 	    onclone: function(doc){
 	    	var exception_val = $("#exception", doc).val().replace(/\n/gi, "<br>");
 	    	var exception_id_val = $("#exception_id", doc).val().replace(/\n/gi, "<br>");

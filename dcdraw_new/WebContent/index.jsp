@@ -48,9 +48,10 @@
 										<label class="error" for="track" id="track_error">추첨페이지 URL 입력</label><BR><BR>
 					<table style="width:100%;border:0;margin:0 auto">
 						<tr>
-							<td style="vertical-align: top;text-align:center;border: 0 solid black;border-right-width:2px;padding:10px;">
-								<h3>최근 당첨자 목록 (20명만 표시)</h3>
+							<td style="vertical-align: top;text-align:left;border: 0 solid black;border-right-width:2px;padding:10px;">
+								<h3 style="margin-inline-start: 50px;">최근 당첨자 목록 (20명만 표시)</h3>
 								<div id="recent"><%=winner_str.toString()%></div>
+								<h2 style="margin-inline-start: 50px;"><a href="public_logs/">추첨 기록 확인하기</a></h2>
 							</td>
 							<td>
 												<table style="border:0;margin:0 auto">

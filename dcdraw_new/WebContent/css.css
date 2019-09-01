@@ -21,4 +21,4 @@ a:link {color: inherit;}
 a:hover {color: inherit;}
 a:active {color: inherit;}
 a {text-decoration: none;}
-#recent {text-align:left;font-weight:bold;font-size:1em;padding-left:54px;padding-top:10px;line-height:1.4em;border-width:0px;width:196px;height:400px;overflow:hidden;}
+#recent {text-align:left;font-weight:bold;font-size:1em;padding-left:54px;padding-top:10px;padding-bottom:10px;line-height:1.4em;border-width:0px;width:196px;height:fit-content;overflow:hidden;}

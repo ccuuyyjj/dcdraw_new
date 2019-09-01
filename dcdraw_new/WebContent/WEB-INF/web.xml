@@ -59,7 +59,7 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Logs</web-resource-name>
-			<url-pattern>/logs/</url-pattern>
+			<url-pattern>/logs/*</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>Logout Page</web-resource-name>

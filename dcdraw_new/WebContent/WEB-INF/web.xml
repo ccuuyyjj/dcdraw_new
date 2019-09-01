@@ -40,11 +40,11 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>LogDisplayServlet</servlet-name>
-		<url-pattern>/logs/</url-pattern>
+		<url-pattern>/logs/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>PublicLogDisplayServlet</servlet-name>
-		<url-pattern>/public_logs/</url-pattern>
+		<url-pattern>/public_logs/*</url-pattern>
 	</servlet-mapping>
 
 	<security-constraint>

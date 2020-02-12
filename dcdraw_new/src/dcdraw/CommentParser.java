@@ -29,6 +29,7 @@ public class CommentParser {
 		String URL = "https://gall.dcinside.com/board/comment_view/?id=" + id + "&no=" + no;
 		List<Comment> list = new ArrayList<>();
 		Response response = null;
+		boolean is_minor = false;
 
 		int trycount = 0;
 		int maxTries = 3;
@@ -56,6 +57,40 @@ public class CommentParser {
 		Map<String, String> cookie = response.cookies();
 		//String csrf_token = cookie.get("ci_c");
 		String e_s_n_o = response.parse().select("#e_s_n_o").val();
+		
+		if(e_s_n_o.isEmpty()) { //마이너갤 체크
+			URL = "https://gall.dcinside.com/mgallery/board/view?id=" + id + "&no=" + no;
+			response = null;
+			
+			trycount = 0;
+			
+			while (true) {
+				try {
+					response = Jsoup.connect(URL) // 토큰받는용도
+							.userAgent(userAgent)
+							.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+							.header("Content-Type", "application/x-www-form-urlencoded")
+							.header("Accept-Encoding", "gzip, deflate, br")
+							.header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+							.method(Connection.Method.GET)
+							.execute();
+					if (response.statusCode() == 200)
+						break;
+					else
+						throw new HttpStatusException("아무튼200이 아님", response.statusCode(), response.url().toString());
+				} catch (HttpStatusException e) {
+					Thread.sleep(500);
+					if (++trycount == maxTries)
+						throw e;
+				}
+			}
+
+			cookie = response.cookies();
+			//String csrf_token = cookie.get("ci_c");
+			e_s_n_o = response.parse().select("#e_s_n_o").val();
+			
+			if(!e_s_n_o.isEmpty()) is_minor = true;
+		}
 
 		trycount = 0;
 		int page = 1;
@@ -165,6 +200,7 @@ public class CommentParser {
 			}
 		}
 		Collections.sort(list);
+		if(is_minor) list.add(new Comment("마이너갤", "이구먼", null));
 		return list;
 	}
 	
@@ -310,6 +346,6 @@ public class CommentParser {
 	}
 
 //	public static void main(String[] args) throws IOException, ParseException, InterruptedException {
-//		System.out.println(CommentParser.parse("mabi_heroes", 8563305));
+//		System.out.println(CommentParser.parse("", 123));
 //	}
 }

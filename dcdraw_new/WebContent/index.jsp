@@ -45,7 +45,7 @@
 		</div>
 		<div id="form_div">
 										<input type="text" name="track" class="track" id="track" placeholder="http://gall.dcinside.com/example/1234567"/><BR />
-										<label class="error" for="track" id="track_error">추첨페이지 URL 입력</label><BR><BR>
+										<label class="error" for="track" id="track_error">추첨페이지 URL 입력 (마이너 갤러리도 추첨 가능합니다)</label><BR><BR>
 					<table style="width:100%;border:0;margin:0 auto">
 						<tr>
 							<td style="vertical-align: top;text-align:left;border: 0 solid black;border-right-width:2px;padding:10px;">

@@ -35,6 +35,7 @@
 	boolean log_enabled = true;
 	boolean log_public_enabled = true;
 	boolean test_mode = queryMap.get("testmode")[0].equals("Y")?true:false;
+	boolean is_minor = false;
 
 	if(no_redfish){
 		Pattern p = Pattern.compile("\\(([^()]+)\\)<\\/a><br>");
@@ -88,11 +89,19 @@
     }
     if(responseBody.toString().indexOf("\"success\": true") > -1){
     	if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")||URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||URL.matches("^https:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")||URL.matches("^https:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")||(URL.contains("dcinside.com/")&&URL.contains("id=")&&URL.contains("no="))){
-    		if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")){
+    		if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/m\\/\\w+\\/\\d+$")){
+    			String[] tmp = URL.substring(27).split("\\/");
+    			id = tmp[0];
+    			no = tmp[1];
+    		} else if(URL.matches("^http:\\/\\/gall\\.dcinside\\.com\\/\\w+\\/\\d+$")){
     			String[] tmp = URL.substring(25).split("\\/");
     			id = tmp[0];
     			no = tmp[1];
     		} else if(URL.matches("^http:\\/\\/m\\.dcinside\\.com\\/board\\/\\w+\\/\\d+$")){
+    			String[] tmp = URL.substring(28).split("\\/");
+    			id = tmp[0];
+    			no = tmp[1];
+    		} else if(URL.matches("^https:\\/\\/gall\\.dcinside\\.com\\/m\\/\\w+\\/\\d+$")){
     			String[] tmp = URL.substring(28).split("\\/");
     			id = tmp[0];
     			no = tmp[1];
@@ -112,6 +121,12 @@
     		if(no.indexOf("&") != -1)
     			no = no.substring(0, no.indexOf("&"));
     		List<Comment> comment_list = CommentParser.parse(id, Integer.parseInt(no));
+    		
+    		Comment last = comment_list.get(comment_list.size() - 1);
+    		if(last.getUser_nick().equals("마이너갤") && last.getUser_id().equals("이구먼") && (last.getRetime() == null)){
+    			is_minor = true;
+    			comment_list.remove(comment_list.size() - 1);
+    		}
     		
     		List<String> list = new ArrayList<>();
     		outerloop:
@@ -271,7 +286,8 @@
 			StringBuilder winner_str = new StringBuilder();
 			for(String s : winner){
 				if(size < 20){
-					winner_str.append("<a href=\"https://gall.dcinside.com/").append(id).append("/").append(no).append("\" target=\"_blank\">").append(s).append("</a><br>");
+					if(is_minor) winner_str.append("<a href=\"https://gall.dcinside.com/m/").append(id).append("/").append(no).append("\" target=\"_blank\">").append(s).append("</a><br>");
+					else winner_str.append("<a href=\"https://gall.dcinside.com/").append(id).append("/").append(no).append("\" target=\"_blank\">").append(s).append("</a><br>");
 			    	winner_str.append(System.lineSeparator());
 			    	size++;
 				}

@@ -20,11 +20,11 @@
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <LINK href="css.css" rel="stylesheet" type="text/css">
-<script src="https://code.jquery.com/jquery-1.7.2.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://cdn.rawgit.com/taylorhakes/promise-polyfill/1365ba35/dist/polyfill.min.js"></script>
 <script src="https://cdn.rawgit.com/rndme/download/09d6492f/download.min.js"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="jquery-1.12.4.min.js"></script>
 <script src="dcdraw.js"></script>
 <title>DC추첨(Fixed)</title>
 </head>

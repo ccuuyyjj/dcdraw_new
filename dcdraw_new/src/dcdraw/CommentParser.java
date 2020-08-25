@@ -121,7 +121,8 @@ public class CommentParser {
 
 		LinkedHashMap<String, Object> json = (LinkedHashMap<String, Object>) JSONParser.parseJSON(response.body());
 		int total_cnt = Integer.parseInt(json.get("total_cnt").toString());
-		int comment_cnt = Integer.parseInt(json.get("comment_cnt").toString());
+//		int comment_cnt = Integer.parseInt(json.get("comment_cnt").toString());
+		int comment_cnt = 0;
 		ArrayList<LinkedHashMap<String, Object>> comments = (ArrayList<LinkedHashMap<String, Object>>) json
 				.get("comments");
 		for (LinkedHashMap<String, Object> cmt : comments) {
@@ -131,8 +132,8 @@ public class CommentParser {
 				total_cnt--;
 				continue;
 			}
-			if (Integer.parseInt(cmt.get("depth").toString()) > 0)
-				comment_cnt++;
+//			if (Integer.parseInt(cmt.get("depth").toString()) > 0)
+//				comment_cnt++;
 			String user_nick = cmt.get("name").toString();
 			if (user_nick.isEmpty())
 				user_nick = "[공백]";
@@ -144,6 +145,7 @@ public class CommentParser {
 			Date retime = dateFormat.parse(time);
 			Comment comment = new Comment(user_nick.trim(), user_id.trim(), retime);
 			list.add(comment);
+			comment_cnt++;
 		}
 
 		while (total_cnt > comment_cnt) {
@@ -173,9 +175,8 @@ public class CommentParser {
 						throw e;
 				}
 			}
-
 			json = (LinkedHashMap<String, Object>) JSONParser.parseJSON(response.body());
-			comment_cnt += Integer.parseInt(json.get("comment_cnt").toString());
+			//comment_cnt += Integer.parseInt(json.get("comment_cnt").toString());
 			comments = (ArrayList<LinkedHashMap<String, Object>>) json.get("comments");
 			for (LinkedHashMap<String, Object> cmt : comments) {
 				if (cmt.get("nicktype").equals("COMMENT_BOY"))
@@ -184,8 +185,8 @@ public class CommentParser {
 					total_cnt--;
 					continue;
 				}
-				if (Integer.parseInt(cmt.get("depth").toString()) > 0)
-					comment_cnt++;
+//				if (Integer.parseInt(cmt.get("depth").toString()) > 0)
+//					comment_cnt++;
 				String user_nick = cmt.get("name").toString();
 				if (user_nick.isEmpty())
 					user_nick = "[공백]";
@@ -197,6 +198,7 @@ public class CommentParser {
 				Date retime = dateFormat.parse(time);
 				Comment comment = new Comment(user_nick.trim(), user_id.trim(), retime);
 				list.add(comment);
+				comment_cnt++;
 			}
 		}
 		Collections.sort(list);
@@ -269,14 +271,15 @@ public class CommentParser {
 
 		LinkedHashMap<String, Object> json = (LinkedHashMap<String, Object>) JSONParser.parseJSON(response.body());
 		int total_cnt = Integer.parseInt(json.get("total_cnt").toString());
-		int comment_cnt = Integer.parseInt(json.get("comment_cnt").toString());
+//		int comment_cnt = Integer.parseInt(json.get("comment_cnt").toString());
+		int comment_cnt = 0;
 		ArrayList<LinkedHashMap<String, Object>> comments = (ArrayList<LinkedHashMap<String, Object>>) json
 				.get("comments");
 		for (LinkedHashMap<String, Object> cmt : comments) {
 			if (cmt.get("nicktype").equals("COMMENT_BOY") || cmt.get("is_delete").equals("1"))
 				continue;
-			if (Integer.parseInt(cmt.get("depth").toString()) > 0)
-				comment_cnt++;
+//			if (Integer.parseInt(cmt.get("depth").toString()) > 0)
+//				comment_cnt++;
 			String user_nick = cmt.get("name").toString();
 			if (user_nick.isEmpty())
 				user_nick = "[공백]";
@@ -288,6 +291,7 @@ public class CommentParser {
 			Date retime = dateFormat.parse(time);
 			Comment comment = new Comment(user_nick.trim(), user_id.trim(), retime);
 			list.add(comment);
+			comment_cnt++;
 		}
 
 		while (total_cnt > comment_cnt) {
@@ -325,8 +329,8 @@ public class CommentParser {
 			for (LinkedHashMap<String, Object> cmt : comments) {
 				if (cmt.get("nicktype").equals("COMMENT_BOY"))
 					continue;
-				if (Integer.parseInt(cmt.get("depth").toString()) > 0)
-					comment_cnt++;
+//				if (Integer.parseInt(cmt.get("depth").toString()) > 0)
+//					comment_cnt++;
 				String user_nick = cmt.get("name").toString();
 				if (user_nick.isEmpty())
 					user_nick = "[공백]";
@@ -338,6 +342,7 @@ public class CommentParser {
 				Date retime = dateFormat.parse(time);
 				Comment comment = new Comment(user_nick.trim(), user_id.trim(), retime);
 				list.add(comment);
+				comment_cnt++;
 			}
 		}
 
